@@ -108,12 +108,55 @@ public class IngredienteDao {
 
         return ingredienteInsert;
     }
-/*
-    public Ingrediente updateIngrediente(Ingrediente ingrediente){
 
+    public boolean updateIngrediente(Ingrediente ingrediente) throws SQLException{
+        boolean flag = false;
+        con = null;
 
+        try{
+            con = ConnectionDB.getConnection();
+            con.setAutoCommit(false);
+            ps = con.prepareStatement("UPDATE ingrediente SET `nombreIngrediente` = ?,`idAreaIngrediente` = ? WHERE id_Ingrediente = ?;");
+            ps.setString(1,ingrediente.getNombreIngrediente());
+            ps.setInt(2,ingrediente.getIdAreaIngrediente().getId());
+            ps.setInt(3,ingrediente.getIdIngrediente());
+
+            flag = (ps.executeUpdate() == 1);
+            con.commit();
+        }catch(Exception e){
+            System.err.println("ERROR update" + e.getMessage());
+            con.rollback();
+        }finally{
+            if(con!=null) con.close();
+            if(rs!=null)rs.close();
+            if(ps!=null)ps.close();
+        }
+
+        return flag;
     }
-*/
+
+    public boolean deleteIngrediente(int id) throws  SQLException {
+        boolean flag = false;
+
+        try{
+            con = ConnectionDB.getConnection();
+            con.setAutoCommit(false);
+            ps  = con.prepareStatement("DELETE FROM ingrediente WHERE id_Ingrediente = ?");
+            ps.setInt(1,id);
+            flag = ps.executeUpdate() == 1;
+            con.commit();
+        }catch(Exception e){
+            System.err.println("ERROR delete" + e.getMessage());
+            con.rollback();
+        }finally{
+            if(con!=null) con.close();
+            if(rs!=null)rs.close();
+            if(ps!=null)ps.close();
+        }
+
+        return flag;
+    }
+
 
 
 }
