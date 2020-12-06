@@ -1,6 +1,7 @@
 package mx.edu.utez.pedido.model;
 
 import mx.edu.utez.direccion.model.Direccion;
+import mx.edu.utez.usuario.model.Usuario;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -13,7 +14,7 @@ public class Pedido {
     private double cantidadPago;
     private Time horaEntrega;
     private String status;
-    //private Usuario nombreUsuario;
+    private Usuario nombreUsuario;
     private Direccion  idDireccion;
     //private Sucursal idSucursal;
 
