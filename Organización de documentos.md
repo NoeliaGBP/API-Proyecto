@@ -121,24 +121,25 @@ Precio
     [x]DAO
 [N]19.-Persona
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [N]20.-TipoContacto
     [x]Pojo
-    []Service
-    []DAO
-[N]21.-Contacto
+    [x]Service
+    [x]DAO
+[N]21.-Contacto //Falta servicio para obtener los contactos por especifico
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [N]22.-Rol
     [x]Pojo
-    []Service
-    []DAO
-[N]23.-Usuario
+    [x]Service
+    [x]DAO
+[N]23.-Usuario //Queda pendiente revisar lo correspondiente a la actualización "contraseña"
+//Queda pendiente el regristro de una cuenta "según el rol" y login 
     [x]Pojo
     []Service
-    []DAO
+    [x]DAO
 [M]24.-SucursalTieneUsuario
     [x]Pojo
     []Service
