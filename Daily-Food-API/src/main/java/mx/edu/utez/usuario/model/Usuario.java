@@ -1,11 +1,14 @@
 package mx.edu.utez.usuario.model;
 
+import mx.edu.utez.persona.model.Persona;
+import mx.edu.utez.rol.model.Rol;
+
 public class Usuario {
     private String nombreUsuario;
     private String contrasenia;
     private int token;
-    private int idPersona;
-    private int idRol;
+    private Persona idPersona;
+    private Rol idRol;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -31,19 +34,19 @@ public class Usuario {
         this.token = token;
     }
 
-    public int getIdPersona() {
+    public Persona getIdPersona() {
         return idPersona;
     }
 
-    public void setIdPersona(int idPersona) {
+    public void setIdPersona(Persona idPersona) {
         this.idPersona = idPersona;
     }
 
-    public int getIdRol() {
+    public Rol getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(int idRol) {
+    public void setIdRol(Rol idRol) {
         this.idRol = idRol;
     }
 }
