@@ -1,6 +1,7 @@
 package mx.edu.utez.pedido.model;
 
 import mx.edu.utez.direccion.model.Direccion;
+import mx.edu.utez.sucursal.model.Sucursal;
 import mx.edu.utez.usuario.model.Usuario;
 
 import java.sql.Date;
@@ -9,14 +10,14 @@ import java.sql.Time;
 public class Pedido {
 
     private int id;
-    private Date fecha;
+    private String fecha;
     private double cantidadTotal;
     private double cantidadPago;
-    private Time horaEntrega;
+    private String horaEntrega;
     private String status;
     private Usuario nombreUsuario;
     private Direccion  idDireccion;
-    //private Sucursal idSucursal;
+    private Sucursal idSucursal;
 
     public Pedido(){
 
@@ -30,11 +31,11 @@ public class Pedido {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -54,11 +55,11 @@ public class Pedido {
         this.cantidadPago = cantidadPago;
     }
 
-    public Time getHoraEntrega() {
+    public String getHoraEntrega() {
         return horaEntrega;
     }
 
-    public void setHoraEntrega(Time horaEntrega) {
+    public void setHoraEntrega(String horaEntrega) {
         this.horaEntrega = horaEntrega;
     }
 
@@ -70,11 +71,27 @@ public class Pedido {
         this.status = status;
     }
 
-    public Direccion getDireccion() {
+    public Usuario getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(Usuario nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public Direccion getIdDireccion() {
         return idDireccion;
     }
 
-    public void setDireccion(Direccion direccion) {
-        this.idDireccion = direccion;
+    public void setIdDireccion(Direccion idDireccion) {
+        this.idDireccion = idDireccion;
+    }
+
+    public Sucursal getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Sucursal idSucursal) {
+        this.idSucursal = idSucursal;
     }
 }

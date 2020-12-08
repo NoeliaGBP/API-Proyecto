@@ -93,8 +93,8 @@ Precio
     []DAO
 [S]12.-Sucursal
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [E]13.-TipoMenu
     [x]Pojo
     []Service
@@ -119,6 +119,7 @@ Precio
     [x]Pojo
     []Service
     [x]DAO
+//Inicio de actividades Noelia
 [N]19.-Persona
     [x]Pojo
     [x]Service
@@ -127,7 +128,7 @@ Precio
     [x]Pojo
     [x]Service
     [x]DAO
-[N]21.-Contacto //Falta servicio para obtener los contactos por especifico
+[N]21.-Contacto //Falta servicio para obtener los contactos por especifico según cada usuario
     [x]Pojo
     [x]Service
     [x]DAO
@@ -140,23 +141,25 @@ Precio
     [x]Pojo
     []Service
     [x]DAO
+//Fin actividades Noelia
+//Inicio actividades Manuel
 [M]24.-SucursalTieneUsuario
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [X]DAO
 [M]25.-Direccion
     [x]Pojo
-    []Service
-    []DAO
+    [X]Service
+    [X]DAO
 [M]26.-Pedido
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [M]27.-PedidoTienePlatillo
     [x]Pojo
     []Service
     []DAO
-[M]28.-PedidoTienePromocion
+[M]28.-PedidoTienePromocion 
     [x]Pojo
     []Service
     []DAO
