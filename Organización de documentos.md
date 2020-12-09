@@ -55,18 +55,18 @@ Precio
     [x]Pojo
     [x]Service
     [x]DAO
-[D]3.-UnidadMedida
+[D]3.-UnidadMedida --Solo cuenta con el getbyid en el dao
     [x]Pojo
-    []Service
-    []DAO
-[D]4.-TipoPlatillo
+    [/]Service
+    [/]DAO
+[D]4.-TipoPlatillo 
     [x]Pojo
     []Service
     []DAO
 [D]5.-Platillo
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [D]6.-IngredientePlatillo
     [x]Pojo
     []Service
@@ -103,7 +103,6 @@ Precio
     [x]Pojo
     []Service
     [x]DAO
-[E]15.-MenuDia
     [x]Pojo
     []Service
     [x]DAO
@@ -165,5 +164,5 @@ Precio
     []DAO
 [M]29.-Ponderacion
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
