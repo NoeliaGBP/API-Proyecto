@@ -1,4 +1,4 @@
-package mx.edu.utez.usuariosucursal.model;
+package mx.edu.utez.sucursalusuario.model;
 
 import mx.edu.utez.sucursal.model.Sucursal;
 import mx.edu.utez.usuario.model.Usuario;
