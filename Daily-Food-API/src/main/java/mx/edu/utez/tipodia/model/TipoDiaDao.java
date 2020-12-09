@@ -1,6 +1,7 @@
 package mx.edu.utez.tipodia.model;
 
 import mx.edu.utez.dia.model.DiaDao;
+import mx.edu.utez.sucursal.model.SucursalDao;
 import mx.edu.utez.tools.ConnectionDB;
 
 import java.sql.Connection;
@@ -52,7 +53,7 @@ public class TipoDiaDao {
                 tipoDia.setDiaCompra(rs.getBoolean(2));
                 tipoDia.setDiaRegistro(rs.getBoolean(3));
                 tipoDia.setIdSucursal(sucursal.getSucursalById(rs.getInt(4)));
-                tipoDia.setIdDia(dia.getDiaByCode(rs.getInt(5)));
+                tipoDia.setIdDia(dia.getDiaById(rs.getInt(5)));
             }
             rs.close();
             ps.close();

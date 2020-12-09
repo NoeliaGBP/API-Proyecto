@@ -1,5 +1,6 @@
 package mx.edu.utez.menu.model;
 
+import mx.edu.utez.sucursal.model.Sucursal;
 import mx.edu.utez.tipomenu.model.TipoMenu;
 
 public class Menu {

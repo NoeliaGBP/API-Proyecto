@@ -1,6 +1,7 @@
 package mx.edu.utez.platilloenmenu.model;
 
 import mx.edu.utez.menu.model.Menu;
+import mx.edu.utez.platillo.model.Platillo;
 
 public class PlatilloEnMenu {
 

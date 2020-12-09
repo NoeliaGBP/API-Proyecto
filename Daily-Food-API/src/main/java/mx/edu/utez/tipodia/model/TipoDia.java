@@ -1,6 +1,7 @@
 package mx.edu.utez.tipodia.model;
 
 import mx.edu.utez.dia.model.Dia;
+import mx.edu.utez.sucursal.model.Sucursal;
 
 public class TipoDia {
 

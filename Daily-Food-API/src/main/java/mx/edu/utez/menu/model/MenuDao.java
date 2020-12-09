@@ -1,5 +1,6 @@
 package mx.edu.utez.menu.model;
 
+import mx.edu.utez.sucursal.model.SucursalDao;
 import mx.edu.utez.tipomenu.model.TipoMenuDao;
 import mx.edu.utez.tools.ConnectionDB;
 

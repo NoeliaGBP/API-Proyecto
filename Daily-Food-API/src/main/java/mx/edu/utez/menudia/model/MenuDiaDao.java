@@ -32,7 +32,7 @@ public class MenuDiaDao {
         return listMenusDia;
     }
 
-    public MenuDia getMenuDiaByCode(int idMenuDia){
+    public MenuDia getMenuDiaById(int idMenuDia){
         MenuDia obj = new MenuDia();
         try{
             Connection con = ConnectionDB.getConnection();
