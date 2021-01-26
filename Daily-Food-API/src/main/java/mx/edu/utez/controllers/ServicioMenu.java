@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
 
-@Path("/menu")
+@Path("/daily")
 public class ServicioMenu {
 
     @GET
-    @Path("/menu")
+    @Path("/menus")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getMenus(){
         MyResponse response = new MyResponse();
@@ -32,7 +32,7 @@ public class ServicioMenu {
     }
 
     @GET
-    @Path("/menu/{idMenu}")
+    @Path("/menus/{idMenu}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getMenu(@PathParam("idMenu") int idM){
         MyResponse response = new MyResponse();
@@ -51,7 +51,7 @@ public class ServicioMenu {
     }
 
     @POST
-    @Path("/menu")
+    @Path("/menus")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse createMenu(Menu menuN) throws SQLException {
@@ -71,7 +71,7 @@ public class ServicioMenu {
     }
 
     @PUT
-    @Path("/menu")
+    @Path("/menus")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse updateMenu(Menu menuN) throws SQLException{
@@ -91,7 +91,7 @@ public class ServicioMenu {
     }
 
     @DELETE
-    @Path("/menu/{idMenu}")
+    @Path("/menus/{idMenu}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse deleteMenu(@PathParam("idMenu") int idM) throws SQLException{
         MyResponse response = new MyResponse();

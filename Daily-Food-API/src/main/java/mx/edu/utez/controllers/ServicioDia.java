@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
 
-@Path("/dia")
+@Path("/daily")
 public class ServicioDia {
 
     @GET
-    @Path("/dia")
+    @Path("/dias")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getDias(){
         MyResponse response = new MyResponse();
@@ -32,7 +32,7 @@ public class ServicioDia {
     }
 
     @GET
-    @Path("/dia/{idDia}")
+    @Path("/dias/{idDia}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getDia(@PathParam("idDia") int idDia){
         MyResponse response = new MyResponse();
@@ -51,7 +51,7 @@ public class ServicioDia {
     }
 
     @POST
-    @Path("/dia")
+    @Path("/dias")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse createDia(Dia dia) throws SQLException {
@@ -71,7 +71,7 @@ public class ServicioDia {
     }
 
     @PUT
-    @Path("/dia")
+    @Path("/dias")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse updateDia(Dia diaNew) throws SQLException{
@@ -91,7 +91,7 @@ public class ServicioDia {
     }
 
     @DELETE
-    @Path("/dia/{idDia}")
+    @Path("/dias/{idDia}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse deleteDia(@PathParam("idDia") int idDia) throws SQLException{
         MyResponse response = new MyResponse();
@@ -105,7 +105,7 @@ public class ServicioDia {
             response.setStatus("error");
             response.setCode(400);
             response.setMessage("Hubo fallas al eliminar el Dia");
-        }
+         }
         return response;
     }
 

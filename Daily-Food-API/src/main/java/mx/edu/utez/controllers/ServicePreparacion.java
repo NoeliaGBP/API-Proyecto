@@ -1,7 +1,7 @@
 package mx.edu.utez.controllers;
 
-import mx.edu.utez.ponderacion.model.Ponderacion;
-import mx.edu.utez.ponderacion.model.PonderacionDao;
+import mx.edu.utez.preparacion.model.Preparacion;
+import mx.edu.utez.preparacion.model.PreparacionDao;
 import mx.edu.utez.response.MyResponse;
 import mx.edu.utez.unidadMedida.model.UnidadMedida;
 import mx.edu.utez.unidadMedida.model.UnidadMedidaDao;
@@ -12,46 +12,46 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Path("/daily")
-public class ServiceUnidadMedida {
+public class ServicePreparacion {
 
     @GET
-    @Path("/unidades.medida")
+    @Path("/preparaciones")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public MyResponse readtUnidadMedida() throws SQLException{
+    public MyResponse readtPreparacion() throws SQLException {
         MyResponse response = new MyResponse();
-        List list = (new UnidadMedidaDao().getUnidadMedida());
+        List list = (new PreparacionDao().readPreparacion());
         if(list.size() > 0){
             response.setCode(200);
             response.setStatus("success");
-            response.setMessage("READ UNIDAD MEDIDA");
+            response.setMessage("READ PREPARACION");
             response.setData(list);
         }else{
             response.setCode(400);
             response.setStatus("error");
-            response.setMessage("ERROR READ UNIDAD MEDIDA");
+            response.setMessage("ERROR READ PREPARACION");
             response.setData(null);
         }
         return response;
     }
 
     @GET
-    @Path("/unidades.medida/{id}")
+    @Path("/preparaciones/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public MyResponse getUnidadMedida(@PathParam("id") int id) throws SQLException{
+    public MyResponse getPreparacion(@PathParam("id") int id) throws SQLException{
         MyResponse response = new MyResponse();
         UnidadMedida unidadMedida = (new UnidadMedidaDao().getUnidadMedidaById(id));
 
         if(unidadMedida.getIdUnidadMedida() != 0){
             response.setCode(200);
             response.setStatus("success");
-            response.setMessage("READ UNIDAD MEDIDA BY ID");
+            response.setMessage("READ PREPARACION BY ID");
             response.setData(unidadMedida);
         }else{
             response.setCode(400);
             response.setStatus("error");
-            response.setMessage("ERROR READ UNIDAD MEDIDA BY ID");
+            response.setMessage("ERROR READ PREPARACION BY ID");
             response.setData(null);
         }
 
@@ -59,23 +59,23 @@ public class ServiceUnidadMedida {
     }
 
     @POST
-    @Path("/unidades.medida")
+    @Path("/preparaciones")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public MyResponse createUnidadMedida(UnidadMedida unidadMedida) throws SQLException{
+    public MyResponse createPreparacion(Preparacion preparacion ) throws SQLException{
         MyResponse response = new MyResponse();
 
-        UnidadMedida unidadMedidaInsert = (new UnidadMedidaDao().createdUnidadMedida(unidadMedida));
+        Preparacion preparacionInsert = (new PreparacionDao().createPreparacion(preparacion));
 
-        if(unidadMedidaInsert.getIdUnidadMedida() != 0){
+        if(preparacionInsert.getIdPreparacion() != 0){
             response.setCode(200);
             response.setStatus("success");
-            response.setMessage("UNIDAD MEDIDA CREATED");
-            response.setData(unidadMedidaInsert);
+            response.setMessage("PREPARACION CREATED");
+            response.setData(preparacionInsert);
         }else{
             response.setCode(400);
             response.setStatus("error");
-            response.setMessage("ERROR UNIDAD MEDIDA CREATED");
+            response.setMessage("ERROR PREPARACION CREATED");
             response.setData(null);
         }
 
@@ -83,23 +83,23 @@ public class ServiceUnidadMedida {
     }
 
     @PUT
-    @Path("/unidades.medida")
+    @Path("/preparaciones")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public MyResponse updateUnidadMedida (UnidadMedida unidadMedida) throws SQLException{
+    public MyResponse updatePreparacion (Preparacion preparacion) throws SQLException{
         MyResponse response = new MyResponse();
 
-        boolean flag = (new UnidadMedidaDao().updateUnidadMedida(unidadMedida));
+        boolean flag = (new PreparacionDao().updatePreparacion(preparacion));
 
         if(flag){
             response.setCode(200);
             response.setStatus("success");
-            response.setMessage("UNIDAD MEDIDA UPDATE");
-            response.setData(unidadMedida);
+            response.setMessage("PREPARACION UPDATE");
+            response.setData(preparacion);
         }else{
             response.setCode(400);
             response.setStatus("error");
-            response.setMessage("ERROR UNIDAD MEDIDA UPDATE");
+            response.setMessage("ERROR PREPARACION UPDATE");
             response.setData(null);
         }
 
@@ -107,27 +107,26 @@ public class ServiceUnidadMedida {
     }
 
     @DELETE
-    @Path("/unidades.medida/{id}")
+    @Path("/preparaciones/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public MyResponse deleteUnidadMedida(@PathParam("id") int id) throws SQLException{
+    public MyResponse deletePreparacion(@PathParam("id") int id) throws SQLException{
         MyResponse response = new MyResponse();
 
-        boolean flag = (new UnidadMedidaDao().deleteUnidadMedida(id));
+        boolean flag = (new PreparacionDao().deletePreparacion(id));
 
         if(flag){
             response.setCode(200);
             response.setStatus("success");
-            response.setMessage("UNIDAD MEDIDA DELETE");
+            response.setMessage("PREPARACION DELETE");
             response.setData(flag);
         }else{
             response.setCode(400);
             response.setStatus("error");
-            response.setMessage("ERROR UNIDAD MEDIDA DELETE");
+            response.setMessage("ERROR PREPARACION DELETE");
             response.setData(null);
         }
 
         return response;
     }
-
 }

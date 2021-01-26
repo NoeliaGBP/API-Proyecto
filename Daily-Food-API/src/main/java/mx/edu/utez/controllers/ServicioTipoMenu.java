@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
 
-@Path("/tipoMenu")
+@Path("/daily")
 public class ServicioTipoMenu {
 
     @GET
-    @Path("/tipoMenu")
+    @Path("/tipos.menus")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getTiposMenu(){
         MyResponse response = new MyResponse();
@@ -32,7 +32,7 @@ public class ServicioTipoMenu {
     }
 
     @GET
-    @Path("/tipoMenu/{idTipoMenu}")
+    @Path("/tipos.menus/{idTipoMenu}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getTipoMenu(@PathParam("idTipoMenu") int idTipoMenu){
         MyResponse response = new MyResponse();
@@ -51,7 +51,7 @@ public class ServicioTipoMenu {
     }
 
     @POST
-    @Path("/tipoMenu")
+    @Path("/tipos.menus")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse createTipoMenu(TipoMenu tipoMenu) throws SQLException {
@@ -71,7 +71,7 @@ public class ServicioTipoMenu {
     }
 
     @PUT
-    @Path("/tipoMenu")
+    @Path("/tipos.menus")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse updateTipoMenu(TipoMenu tipoMenu) throws SQLException{
@@ -91,7 +91,7 @@ public class ServicioTipoMenu {
     }
 
     @DELETE
-    @Path("/tipoMenu/{idTipoMenu}")
+    @Path("/tipos.menus/{idTipoMenu}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse deleteTipoMenu(@PathParam("idTipoMenu") int idTipoMenu) throws SQLException{
         MyResponse response = new MyResponse();

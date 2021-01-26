@@ -57,66 +57,70 @@ Precio
     [x]DAO
 [D]3.-UnidadMedida --Solo cuenta con el getbyid en el dao
     [x]Pojo
-    [/]Service
-    [/]DAO
-[D]4.-TipoPlatillo 
+    [x]Service
+    [x]DAO
+[D]4.-TipoPlatillo
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [D]5.-Platillo
     [x]Pojo
     [x]Service
     [x]DAO
+//Pendiente ya que me genero duda en el comportamiento    
 [D]6.-IngredientePlatillo
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [S]7.-Preparacion
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [S]8.-Precio
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
 [S]9.-ImagenPlatillo
     [x]Pojo
     []Service
     []DAO
 [S]10.-Promocion
     [x]Pojo
-    []Service
-    []DAO
+    [x]Service
+    [x]DAO
+    En la base de datos el campo "descripcion" esta escrito mal
 [S]11.-PromocionTienePlatilloMenu
+    //Considerar que el método que retorne solo una lista de platillos los cuales se encuentrarn disponibles en dicha
+    //promoción
     [x]Pojo
+    *Falta prueba
+    //Revisar la opción de consulta
     []Service
-    []DAO
+    [x]DAO
+    Se tiene duda en la opción update
 [S]12.-Sucursal
     [x]Pojo
     [x]Service
     [x]DAO
 [E]13.-TipoMenu
     [x]Pojo
-    []Service
+    [x]Service
     [x]DAO
 [E]14.-Menu
     [x]Pojo
-    []Service
-    [x]DAO
-    [x]Pojo
-    []Service
+    [x]Service
     [x]DAO
 [E]16.-PlatilloMenu
     [x]Pojo
-    []Service
-    [x]DAO
+    [o]Service
+    [o]DAO
 [E]17.-Dia
     [x]Pojo
     []Service
     [x]DAO
 [E]18.-TipoDia
     [x]Pojo
-    []Service
+    [x]Service
     [x]DAO
 //Inicio de actividades Noelia
 [N]19.-Persona
@@ -135,8 +139,9 @@ Precio
     [x]Pojo
     [x]Service
     [x]DAO
-[N]23.-Usuario //Queda pendiente revisar lo correspondiente a la actualización "contraseña"
-//Queda pendiente el regristro de una cuenta "según el rol" y login 
+[N]23.-Usuario
+//Queda pendiente revisar lo correspondiente a la actualización "contraseña"
+//Queda pendiente el registro de una cuenta "según el rol" y login
     [x]Pojo
     []Service
     [x]DAO
@@ -148,8 +153,8 @@ Precio
     [X]DAO
 [M]25.-Direccion
     [x]Pojo
-    [X]Service
-    [X]DAO
+    [x]Service
+    [x]DAO
 [M]26.-Pedido
     [x]Pojo
     [x]Service
@@ -158,7 +163,7 @@ Precio
     [x]Pojo
     []Service
     []DAO
-[M]28.-PedidoTienePromocion 
+[M]28.-PedidoTienePromocion
     [x]Pojo
     []Service
     []DAO

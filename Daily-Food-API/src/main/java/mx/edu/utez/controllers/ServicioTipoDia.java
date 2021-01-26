@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
 
-@Path("/tipoDia")
+@Path("/daily")
 public class ServicioTipoDia {
 
     @GET
-    @Path("/tipoDia")
+    @Path("/tipos.dias")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getTiposDia(){
         MyResponse response = new MyResponse();
@@ -30,7 +30,7 @@ public class ServicioTipoDia {
     }
 
     @GET
-    @Path("/tipoDia/{idTipoDia}")
+    @Path("/tipos.dias/{idTipoDia}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getTipoDia(@PathParam("idTipoDia") int idTipoDia){
         MyResponse response = new MyResponse();
@@ -49,7 +49,7 @@ public class ServicioTipoDia {
     }
 
     @POST
-    @Path("/tipoDia")
+    @Path("/tipos.dias")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse createTipoDia(TipoDia tipoDia) throws SQLException {
@@ -69,7 +69,7 @@ public class ServicioTipoDia {
     }
 
     @PUT
-    @Path("/tipoDia")
+    @Path("/tipos.dias")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse updateTipoDia(TipoDia tipoDia) throws SQLException{
@@ -89,7 +89,7 @@ public class ServicioTipoDia {
     }
 
     @DELETE
-    @Path("/tipoDia/{idTipoDia}")
+    @Path("/tipos.dias/{idTipoDia}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse deleteTipoDia(@PathParam("idTipoDia") int idTipoDia) throws SQLException{
         MyResponse response = new MyResponse();

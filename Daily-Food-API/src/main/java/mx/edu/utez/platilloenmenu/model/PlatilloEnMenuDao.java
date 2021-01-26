@@ -1,6 +1,7 @@
 package mx.edu.utez.platilloenmenu.model;
 
 import mx.edu.utez.menu.model.MenuDao;
+import mx.edu.utez.platillo.model.PlatilloDao;
 import mx.edu.utez.tools.ConnectionDB;
 
 import java.sql.Connection;

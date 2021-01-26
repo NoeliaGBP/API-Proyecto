@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
 
-@Path("/platilloEnMenu")
+@Path("/daily")
 public class ServicioPlatilloEnMenu {
 
     @GET
-    @Path("/platilloEnMenu")
+    @Path("/platillos.en.menu")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getPlatillosEnMenu(){
         MyResponse response = new MyResponse();
@@ -32,7 +32,7 @@ public class ServicioPlatilloEnMenu {
     }
 
     @GET
-    @Path("/platilloEnMenu/{idPlatilloMenu}")
+    @Path("/platillos.en.menu/{idPlatilloMenu}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getPlatilloEnMenu(@PathParam("idPlatilloMenu") int idPlatilloEnMenu){
         MyResponse response = new MyResponse();
@@ -51,7 +51,7 @@ public class ServicioPlatilloEnMenu {
     }
 
     @POST
-    @Path("/platilloEnMenu")
+    @Path("/platillos.en.menu")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse createPlatilloEnMenu(PlatilloEnMenu platilloMenu) throws SQLException {
@@ -71,7 +71,7 @@ public class ServicioPlatilloEnMenu {
     }
 
     @PUT
-    @Path("/platilloEnMenu")
+    @Path("/platillos.en.menu")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse updatePlatilloEnMenu(PlatilloEnMenu platilloMenu) throws SQLException{
@@ -91,7 +91,7 @@ public class ServicioPlatilloEnMenu {
     }
 
     @DELETE
-    @Path("/platilloEnMenu/{idPlatilloMenu}")
+    @Path("/platillos.en.menu/{idPlatilloMenu}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse deletePlatilloEnMenu(@PathParam("idPlatilloMenu") int idPlatilloMenu) throws SQLException{
         MyResponse response = new MyResponse();
