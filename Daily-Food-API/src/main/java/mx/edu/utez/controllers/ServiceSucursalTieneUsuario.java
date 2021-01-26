@@ -1,6 +1,5 @@
 package mx.edu.utez.controllers;
 
-import com.sun.org.apache.xpath.internal.objects.XObject;
 import mx.edu.utez.response.MyResponse;
 import mx.edu.utez.usuariosucursal.model.SucursalTieneUsuario;
 import mx.edu.utez.usuariosucursal.model.SucursalTieneUsuarioDao;
