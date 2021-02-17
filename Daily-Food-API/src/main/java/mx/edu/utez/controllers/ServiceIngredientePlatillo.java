@@ -1,7 +1,6 @@
 package mx.edu.utez.controllers;
 
-import mx.edu.utez.contacto.model.Contacto;
-import mx.edu.utez.contacto.model.ContactoDAO;
+
 import mx.edu.utez.ingrediente.model.IngredienteDao;
 import mx.edu.utez.ingredientePlatillo.model.IngredientePlatillo;
 import mx.edu.utez.ingredientePlatillo.model.IngredientePlatilloDao;

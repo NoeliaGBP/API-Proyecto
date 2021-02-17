@@ -1,6 +1,10 @@
 package mx.edu.utez.controllers;
 
+import mx.edu.utez.persona.model.Persona;
+import mx.edu.utez.persona.model.PersonaDAO;
+import mx.edu.utez.request.MyRequest;
 import mx.edu.utez.response.MyResponse;
+import mx.edu.utez.token.Token;
 import mx.edu.utez.usuario.model.Usuario;
 import mx.edu.utez.usuario.model.UsuarioDAO;
 
@@ -70,6 +74,63 @@ public class ServiceUsuario {
         }
         return resp;
     }
+
+    @POST
+    @Path("/singin")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public MyResponse signin(Usuario usuario) throws SQLException {
+        MyResponse resp = new MyResponse();
+
+        //Primero se crea la persona
+        Persona personaCreated = (new PersonaDAO().createPersona(usuario.getIdPersona()));
+
+        if(personaCreated.getIdPersona() != 0){
+            //Se asigna la persona creada al usuario, esto con  el objetivo de insertar el idPersona en la entidad usuario
+            usuario.setIdPersona(personaCreated);
+            Usuario creado = (new UsuarioDAO()).createUsuario(usuario);
+            //Se comprueba que el usuario se creo
+            if (creado.getNombreUsuario() != null && !creado.getNombreUsuario().isEmpty()) {
+                resp.setCode(200);
+                resp.setMessage("Usuario creado");
+                resp.setStatus("success");
+                resp.setData(creado);
+            } else {
+                //En caso de que el usuario no se haya creado, se elimina la persona
+                boolean flag = (new PersonaDAO().deletePersona(personaCreated.getIdPersona()));
+                resp.setCode(400);
+                resp.setMessage("Error, no se creó.");
+                resp.setStatus("error");
+            }
+        }
+
+        return resp;
+    }
+
+    @POST
+    @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public MyResponse login (Usuario usuario) throws SQLException {
+        MyResponse resp = new MyResponse();
+
+        Usuario login = (new UsuarioDAO().login(usuario)) ;
+        if (login != null){
+            Token myToken = new Token();
+
+            resp.setCode(200);
+            resp.setMessage("Sesión iniciada");
+            resp.setStatus("success");
+            resp.setData(myToken.createToken(login));
+        } else {
+            resp.setCode(400);
+            resp.setMessage("Usuario o contraseña erroneos");
+            resp.setStatus("error");
+        }
+        return resp;
+    }
+
+
 
     @PUT
     @Path("/usuarios")

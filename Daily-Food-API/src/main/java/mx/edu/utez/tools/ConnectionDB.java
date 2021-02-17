@@ -9,7 +9,7 @@ public class ConnectionDB {
     //Dirección de acceso
     public static String idAddress = "localhost";
     //Nombre de la base de datos
-    public static String database = "proyecto";
+    public static String database = "mydb";
     //Nombre de usuario para realizar la conexión
     public static String user = "root";
     //Contraseña
