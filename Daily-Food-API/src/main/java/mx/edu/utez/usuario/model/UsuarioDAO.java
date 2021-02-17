@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDAO {
+
+    //No se necesita validar
     public List<Usuario> getUsuarios() {
         ArrayList<Usuario> usuarios = new ArrayList<>();
         try {
@@ -69,13 +71,48 @@ public class UsuarioDAO {
         return usuario;
     }
 
+    public Usuario login(Usuario usuario) {
+        Usuario usuarioLogin = null;
+        try {
+            Connection con = ConnectionDB.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM usuario WHERE correo = BINARY ? AND contrasenia = BINARY  ?");
+            ps.setString(1, usuario.getCorreo());
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(usuario.getContrasenia().getBytes(Charset.forName("UTF-8")));
+            byte[] hashed = md.digest();
+            String contraseniaEncrypt = byteToHex(hashed);
+            ps.setString(2,contraseniaEncrypt);
+
+            ResultSet rs = ps.executeQuery();
+            PersonaDAO personaDAO = new PersonaDAO();
+            RolDAO rolDAO = new RolDAO();
+            while (rs.next()) {
+                if (rs != null) {
+                    usuarioLogin = new Usuario();
+                    usuarioLogin.setNombreUsuario(rs.getString(1));
+                    usuarioLogin.setContrasenia("PRIVATE");
+                    usuarioLogin.setToken(rs.getInt(3));
+                    usuarioLogin.setIdPersona(personaDAO.getPersonaById(rs.getInt(6)));
+                    usuarioLogin.setIdRol(rolDAO.getRolById(rs.getInt(7)));
+                }
+            }
+            if (con!=null) con.close();
+            if (ps!=null) ps.close();
+            if (rs!=null) rs.close();
+        } catch (Exception e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+        return usuarioLogin;
+    }
+
     public Usuario createUsuario(Usuario usuario) throws SQLException {
         Usuario nuevo = new Usuario();
         Connection con = null;
         try {
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO `usuario`(`nombreUsuario`, `contrasenia`, `token`, `idPersona`, `idRol`) VALUES(?,?,?,?,?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `usuario`(`nombreUsuario`, `contrasenia`, `token`,`correo`,`telefono`, `idPersona`, `idRol`) VALUES(?,?,?,?,?,?,?)");
             ps.setString(1, usuario.getNombreUsuario());
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(usuario.getContrasenia().getBytes(Charset.forName("UTF-8")));
@@ -83,21 +120,23 @@ public class UsuarioDAO {
             String contraseniaEncrypt = byteToHex(hashed);
             ps.setString(2, contraseniaEncrypt);
             ps.setInt(3, usuario.getToken());//Ahorita solo es ejemplo xD
-            ps.setInt(4, usuario.getIdPersona().getIdPersona());
-            ps.setInt(5, usuario.getIdRol().getIdRol());
+            ps.setString(4,usuario.getCorreo());
+            ps.setString(5,usuario.getTelefono());
+            ps.setInt(6, usuario.getIdPersona().getIdPersona());
+            ps.setInt(7, usuario.getIdRol().getIdRol());
 
             boolean created = ps.executeUpdate() == 1;
             if (created) {
                 con.commit();
-                nuevo = getUsuarioByUser(usuario.getNombreUsuario());
+                nuevo = usuario;
+                nuevo.setContrasenia("PRIVATE");
             }
-            if (ps != null) ps.close();
+            if (con!=null) con.close();
+            if (ps!=null) ps.close();
         }  catch (Exception e) {
             con.rollback();
             e.getMessage();
             e.printStackTrace();
-        } finally {
-            if (con != null)  con.close();
         }
         return nuevo;
     }
@@ -165,4 +204,6 @@ public class UsuarioDAO {
         }
         return sb.toString();
     }
+
+
 }

@@ -7,6 +7,8 @@ public class Usuario {
     private String nombreUsuario;
     private String contrasenia;
     private int token;
+    private String correo;
+    private String telefono;
     private Persona idPersona;
     private Rol idRol;
 
@@ -48,5 +50,21 @@ public class Usuario {
 
     public void setIdRol(Rol idRol) {
         this.idRol = idRol;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }
