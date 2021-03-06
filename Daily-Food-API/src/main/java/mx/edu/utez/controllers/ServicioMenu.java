@@ -38,7 +38,7 @@ public class ServicioMenu {
         MyResponse response = new MyResponse();
         Menu menu = (new MenuDao().getMenuById(idM));
         response.setData(menu);
-        if(menu != null){
+        if(menu.getIdMenu()>0){
             response.setCode(200);
             response.setStatus("success");
             response.setMessage("Consulta exitosa");

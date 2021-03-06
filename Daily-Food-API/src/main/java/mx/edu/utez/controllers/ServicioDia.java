@@ -38,7 +38,7 @@ public class ServicioDia {
         MyResponse response = new MyResponse();
         Dia dia = (new DiaDao().getDiaById(idDia));
         response.setData(dia);
-        if(response.getData() != null){
+        if(dia.getIdDia()>0){
             response.setStatus("success");
             response.setCode(200);
             response.setMessage("Se realizo la consulta con éxito");

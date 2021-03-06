@@ -41,13 +41,13 @@ public class ServicePreparacion {
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse getPreparacion(@PathParam("id") int id) throws SQLException{
         MyResponse response = new MyResponse();
-        UnidadMedida unidadMedida = (new UnidadMedidaDao().getUnidadMedidaById(id));
+        Preparacion preparacion = (new PreparacionDao().readPreparacionById(id));
 
-        if(unidadMedida.getIdUnidadMedida() != 0){
+        if(preparacion.getIdPreparacion()> 0){
             response.setCode(200);
             response.setStatus("success");
             response.setMessage("READ PREPARACION BY ID");
-            response.setData(unidadMedida);
+            response.setData(preparacion);
         }else{
             response.setCode(400);
             response.setStatus("error");

@@ -4,10 +4,7 @@ import mx.edu.utez.menu.model.MenuDao;
 import mx.edu.utez.platillo.model.PlatilloDao;
 import mx.edu.utez.tools.ConnectionDB;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +14,7 @@ public class PlatilloEnMenuDao {
         ArrayList<PlatilloEnMenu> platillosEnMenu = new ArrayList();
         try{
             Connection con = ConnectionDB.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT  * FROM platilloenmenu");
+            PreparedStatement ps = con.prepareStatement("SELECT  * FROM platilloEnMenu");
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 PlatilloEnMenu platilloEnMenu = new PlatilloEnMenu();
@@ -28,11 +25,11 @@ public class PlatilloEnMenuDao {
                 platilloEnMenu.setStatus(rs.getBoolean(3));
                 platilloEnMenu.setIdMenu(menu.getMenuById(rs.getInt(4)));
                 platilloEnMenu.setIdPlatillo(platillo.getPlatilloById(rs.getInt(5)));
-                getPlatillosEnMenu().add(platilloEnMenu);
+                platillosEnMenu.add(platilloEnMenu);
             }
-            con.close();
-            ps.close();
             rs.close();
+            ps.close();
+            con.close();
         }catch(Exception e){
             System.err.println("LIST "+e.getMessage());
         }
@@ -43,7 +40,7 @@ public class PlatilloEnMenuDao {
         PlatilloEnMenu platilloMenu = new PlatilloEnMenu();
         try{
             Connection con = ConnectionDB.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM platilloenmenu WHERE idMenuPlatillo = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM platilloEnMenu WHERE idMenuPlatillo = ?");
             ps.setInt(1, idPlatilloEnMenu);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -70,8 +67,8 @@ public class PlatilloEnMenuDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO platilloenmenu (`cantidadEstimada`, `status`, " +
-                    "`idMenu`, `idPlatillo`) VALUES (?,?,?,?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO platilloEnMenu (`cantidadEstimada`, `status`, " +
+                    "`idMenu`, `idPlatillo`) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, platilloInsert.getCantidadEstimada());
             ps.setBoolean(2, platilloInsert.isStatus());
             ps.setInt(3, platilloInsert.getIdMenu().getIdMenu());
@@ -106,7 +103,7 @@ public class PlatilloEnMenuDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("UPDATE platilloenmenu SET cantidadEstimada = ?," +
+            PreparedStatement ps = con.prepareStatement("UPDATE platilloEnMenu SET cantidadEstimada = ?," +
                     " status = ?, idMenu = ?, idPlatillo = ? WHERE idMenuPlatillo = ?");
             ps.setInt(1, newPlatilloEnMenu.getCantidadEstimada());
             ps.setBoolean(2, newPlatilloEnMenu.isStatus());
