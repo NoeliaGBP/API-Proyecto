@@ -32,7 +32,7 @@ public class PedidoDao {
                 Pedido pedido = new Pedido();
                 pedido.setId(rs.getInt(1));
                 pedido.setFecha(rs.getString(2));
-                pedido.setCantidadTotal(rs.getDouble(3));
+                pedido.setCostoTotal(rs.getDouble(3));
                 pedido.setCantidadPago(rs.getDouble(4));
                 pedido.setHoraEntrega(rs.getString(5));
                 pedido.setStatus(rs.getString(6));
@@ -72,7 +72,7 @@ public class PedidoDao {
             while(rs.next()){
                 pedido.setId(rs.getInt(1));
                 pedido.setFecha(rs.getString(2));
-                pedido.setCantidadTotal(rs.getDouble(3));
+                pedido.setCostoTotal(rs.getDouble(3));
                 pedido.setCantidadPago(rs.getDouble(4));
                 pedido.setHoraEntrega(rs.getString(5));
                 pedido.setStatus(rs.getString(6));
@@ -102,7 +102,7 @@ public class PedidoDao {
             con.setAutoCommit(false);
             ps = con.prepareStatement("INSERT INTO pedido (fecha, costoTotal, cantidadPago, horaEntrega,status, nombreUsuario, idDireccion, idSucursal) VALUES (?,?,?,?,?,?,?,?);" , Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,pedido.getFecha());
-            ps.setDouble(2,pedido.getCantidadTotal());
+            ps.setDouble(2,pedido.getCostoTotal());
             ps.setDouble(3,pedido.getCantidadPago());
             ps.setString(4,pedido.getHoraEntrega());
             ps.setString(5,pedido.getStatus());
@@ -146,7 +146,7 @@ public class PedidoDao {
             con.setAutoCommit(false);
             ps = con.prepareStatement("UPDATE pedido SET `fecha` = ? , `costoTotal` = ?,`cantidadPago` = ?,  `horaEntrega` = ?, `status` = ?, `nombreUsuario` = ?,  `idDireccion` = ?, `idSucursal` = ? WHERE  `idPedido` = ?;");
             ps.setString(1,pedido.getFecha());
-            ps.setDouble(2,pedido.getCantidadTotal());
+            ps.setDouble(2,pedido.getCostoTotal());
             ps.setDouble(3,pedido.getCantidadPago());
             ps.setString(4,pedido.getHoraEntrega());
             ps.setString(5,pedido.getStatus());

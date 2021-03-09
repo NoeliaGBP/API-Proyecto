@@ -94,7 +94,7 @@ public class PromocionDao {
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
 
-            ps = con.prepareStatement("INSERT INTO promocion(descrpicion,fechaInicio,fechaFin,status,precio) VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement("INSERT INTO promocion(descripcion,fechaInicio,fechaFin,status,precio) VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,promocion.getDescripcion());
             ps.setString(2,promocion.getFechaInicio());
             ps.setString(3,promocion.getFechaFin());
@@ -110,6 +110,7 @@ public class PromocionDao {
                     if(generatedKey.next()){
                         int idGenerated = generatedKey.getInt(1);
                         promocionCreated = promocion;
+                        promocionCreated.setIdPromocion(idGenerated);
 
                     }else{
                         throw new SQLException("ERROR CREATED PROMOCION ");
@@ -143,7 +144,7 @@ public class PromocionDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            ps = con.prepareStatement("UPDATE promocion SET descrpicion = ? ,fechaInicio = ? ,fechaFin = ? ,status = ? ,precio = ? WHERE idPromocion = ?;");
+            ps = con.prepareStatement("UPDATE promocion SET descripcion = ? ,fechaInicio = ? ,fechaFin = ? ,status = ? ,precio = ? WHERE idPromocion = ?;");
             ps.setString(1,promocion.getDescripcion());
             ps.setString(2,promocion.getFechaInicio());
             ps.setString(3,promocion.getFechaFin());
@@ -164,8 +165,8 @@ public class PromocionDao {
             if(rs != null){
                 rs.close();
             }
+            ps.close();
             if( ps != null){
-                ps.close();
             }
             if(con != null){
                 con.close();

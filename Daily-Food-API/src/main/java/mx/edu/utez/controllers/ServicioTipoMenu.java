@@ -38,7 +38,7 @@ public class ServicioTipoMenu {
         MyResponse response = new MyResponse();
         TipoMenu tipoMenu = (new TipoMenuDao().getTipoMenuById(idTipoMenu));
         response.setData(tipoMenu);
-        if(response.getData() != null){
+        if(tipoMenu.getIdTipoMenu()>0){
             response.setStatus("success");
             response.setCode(200);
             response.setMessage("Se realizo la consulta con éxito");

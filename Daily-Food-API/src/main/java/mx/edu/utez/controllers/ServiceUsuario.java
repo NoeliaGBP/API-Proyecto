@@ -87,7 +87,7 @@ public class ServiceUsuario {
 
         if(personaCreated.getIdPersona() != 0){
             //Se asigna la persona creada al usuario, esto con  el objetivo de insertar el idPersona en la entidad usuario
-            usuario.setIdPersona(personaCreated);
+            usuario.setIdPersona(personaCreated );
             Usuario creado = (new UsuarioDAO()).createUsuario(usuario);
             //Se comprueba que el usuario se creo
             if (creado.getNombreUsuario() != null && !creado.getNombreUsuario().isEmpty()) {

@@ -38,7 +38,7 @@ public class ServicioPlatilloEnMenu {
         MyResponse response = new MyResponse();
         PlatilloEnMenu platilloMenu = (new PlatilloEnMenuDao().getPlatilloEnMenuById(idPlatilloEnMenu));
         response.setData(platilloMenu);
-        if(response.getData() != null){
+        if(platilloMenu.getIdPlatilloMenu()>0){
             response.setStatus("success");
             response.setCode(200);
             response.setMessage("Se realizo la consulta con éxito");

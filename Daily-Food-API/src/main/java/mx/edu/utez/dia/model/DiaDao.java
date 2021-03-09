@@ -8,6 +8,7 @@ import java.util.List;
 
 public class DiaDao {
 
+
     public List getDias(){
         ArrayList listDias = new ArrayList();
         try{
@@ -18,6 +19,7 @@ public class DiaDao {
                 Dia obj = new Dia();
                 obj.setIdDia(rs.getInt(1));
                 obj.setNombreDia(rs.getString(2));
+                listDias.add(obj);
             }
             rs.close();
             con.close();
@@ -40,6 +42,7 @@ public class DiaDao {
             }
             rs.close();
             con.close();
+            ps.close();
         }catch(Exception e){
             System.err.println("Error de conexión");
         }
@@ -53,7 +56,7 @@ public class DiaDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            PreparedStatement ps = con.prepareStatement("INSERT INTO dia VALUES(?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO dia(`nombreDia`) VALUES(?)", Statement.RETURN_GENERATED_KEYS);
             //<editor-folder desc="SETSTRING">
             ps.setString(1, diaNuevo.getNombreDia());
             //</editor-folder>
@@ -75,6 +78,7 @@ public class DiaDao {
         }finally {
             con.commit();
             con.close();
+
         }
         return diaReturn;
     }

@@ -4,7 +4,6 @@ import mx.edu.utez.persona.model.PersonaDAO;
 import mx.edu.utez.rol.model.Rol;
 import mx.edu.utez.rol.model.RolDAO;
 import mx.edu.utez.tools.ConnectionDB;
-
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.sql.*;
@@ -12,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDAO {
+
+
 
     //No se necesita validar
     public List<Usuario> getUsuarios() {
@@ -28,9 +29,12 @@ public class UsuarioDAO {
                     usuario.setNombreUsuario(rs.getString(1));
                     usuario.setContrasenia("PRIVATE");
                     usuario.setToken(rs.getInt(3));
-                    usuario.setIdPersona(personaDAO.getPersonaById(rs.getInt(4)));
-                    usuario.setIdRol(rolDAO.getRolById(rs.getInt(5)));
+                    usuario.setCorreo(rs.getString(4));
+                    usuario.setTelefono(rs.getString(5));
+                    usuario.setIdPersona(personaDAO.getPersonaById(rs.getInt(6)));
+                    usuario.setIdRol(rolDAO.getRolById(rs.getInt(7)));
                     usuarios.add(usuario);
+
                 }
             }
             if (con!=null) con.close();
@@ -54,11 +58,14 @@ public class UsuarioDAO {
             RolDAO rolDAO = new RolDAO();
             while (rs.next()) {
                 if (rs != null) {
+
                     usuario.setNombreUsuario(rs.getString(1));
                     usuario.setContrasenia("PRIVATE");
                     usuario.setToken(rs.getInt(3));
-                    usuario.setIdPersona(personaDAO.getPersonaById(rs.getInt(4)));
-                    usuario.setIdRol(rolDAO.getRolById(rs.getInt(5)));
+                    usuario.setCorreo(rs.getString(4));
+                    usuario.setTelefono(rs.getString(5));
+                    usuario.setIdPersona(personaDAO.getPersonaById(rs.getInt(6)));
+                    usuario.setIdRol(rolDAO.getRolById(rs.getInt(7)));
                 }
             }
             if (con!=null) con.close();
@@ -82,7 +89,6 @@ public class UsuarioDAO {
             byte[] hashed = md.digest();
             String contraseniaEncrypt = byteToHex(hashed);
             ps.setString(2,contraseniaEncrypt);
-
             ResultSet rs = ps.executeQuery();
             PersonaDAO personaDAO = new PersonaDAO();
             RolDAO rolDAO = new RolDAO();
