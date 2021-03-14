@@ -13,7 +13,6 @@ public class Pedido {
     private String fecha;
     private double costoTotal;
     private double cantidadPago;
-    private String horaEntrega;
     private String status;
     private Usuario nombreUsuario;
     private Direccion  idDireccion;
@@ -43,7 +42,7 @@ public class Pedido {
         return costoTotal;
     }
 
-    public void setCostoTotal(double cantidadTotal) {
+    public void setCostoTotal(double costoTotal) {
         this.costoTotal = costoTotal;
     }
 
@@ -53,14 +52,6 @@ public class Pedido {
 
     public void setCantidadPago(double cantidadPago) {
         this.cantidadPago = cantidadPago;
-    }
-
-    public String getHoraEntrega() {
-        return horaEntrega;
-    }
-
-    public void setHoraEntrega(String horaEntrega) {
-        this.horaEntrega = horaEntrega;
     }
 
     public String getStatus() {
