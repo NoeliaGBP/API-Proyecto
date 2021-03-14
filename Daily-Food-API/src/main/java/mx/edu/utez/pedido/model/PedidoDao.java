@@ -34,11 +34,10 @@ public class PedidoDao {
                 pedido.setFecha(rs.getString(2));
                 pedido.setCostoTotal(rs.getDouble(3));
                 pedido.setCantidadPago(rs.getDouble(4));
-                pedido.setHoraEntrega(rs.getString(5));
-                pedido.setStatus(rs.getString(6));
-                pedido.setNombreUsuario(usuarioDAO.getUsuarioByUser(rs.getString(7)));
-                pedido.setIdDireccion(direccionDao.getDireccionById(rs.getInt(8)));
-                pedido.setIdSucursal(sucursalDao.getSucursalById(rs.getInt(9)));
+                pedido.setStatus(rs.getString(5));
+                pedido.setNombreUsuario(usuarioDAO.getUsuarioByUser(rs.getString(6)));
+                pedido.setIdDireccion(direccionDao.getDireccionById(rs.getInt(7)));
+                pedido.setIdSucursal(sucursalDao.getSucursalById(rs.getInt(8)));
                 list.add(pedido);
 
             }
@@ -74,11 +73,10 @@ public class PedidoDao {
                 pedido.setFecha(rs.getString(2));
                 pedido.setCostoTotal(rs.getDouble(3));
                 pedido.setCantidadPago(rs.getDouble(4));
-                pedido.setHoraEntrega(rs.getString(5));
-                pedido.setStatus(rs.getString(6));
-                pedido.setNombreUsuario(usuarioDAO.getUsuarioByUser(rs.getString(7)));
-                pedido.setIdDireccion(direccionDao.getDireccionById(rs.getInt(8)));
-                pedido.setIdSucursal(sucursalDao.getSucursalById(rs.getInt(9)));
+                pedido.setStatus(rs.getString(5));
+                pedido.setNombreUsuario(usuarioDAO.getUsuarioByUser(rs.getString(6)));
+                pedido.setIdDireccion(direccionDao.getDireccionById(rs.getInt(7)));
+                pedido.setIdSucursal(sucursalDao.getSucursalById(rs.getInt(8)));
 
             }
 
@@ -100,15 +98,14 @@ public class PedidoDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            ps = con.prepareStatement("INSERT INTO pedido (fecha, costoTotal, cantidadPago, horaEntrega,status, nombreUsuario, idDireccion, idSucursal) VALUES (?,?,?,?,?,?,?,?);" , Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement("INSERT INTO pedido (fecha, costoTotal, cantidadPago, status, nombreUsuario, idDireccion, idSucursal) VALUES (?,?,?,?,?,?,?);" , Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,pedido.getFecha());
             ps.setDouble(2,pedido.getCostoTotal());
             ps.setDouble(3,pedido.getCantidadPago());
-            ps.setString(4,pedido.getHoraEntrega());
-            ps.setString(5,pedido.getStatus());
-            ps.setString(6,pedido.getNombreUsuario().getNombreUsuario());
-            ps.setInt(7,pedido.getIdDireccion().getId());
-            ps.setInt(8,pedido.getIdSucursal().getIdSucursal());
+            ps.setString(4,pedido.getStatus());
+            ps.setString(5,pedido.getNombreUsuario().getNombreUsuario());
+            ps.setInt(6,pedido.getIdDireccion().getId());
+            ps.setInt(7,pedido.getIdSucursal().getIdSucursal());
 
             flag = ps.executeUpdate() == 1;
 
@@ -144,16 +141,15 @@ public class PedidoDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            ps = con.prepareStatement("UPDATE pedido SET `fecha` = ? , `costoTotal` = ?,`cantidadPago` = ?,  `horaEntrega` = ?, `status` = ?, `nombreUsuario` = ?,  `idDireccion` = ?, `idSucursal` = ? WHERE  `idPedido` = ?;");
+            ps = con.prepareStatement("UPDATE pedido SET `fecha` = ? , `costoTotal` = ?,`cantidadPago` = ?, `status` = ?, `nombreUsuario` = ?,  `idDireccion` = ?, `idSucursal` = ? WHERE  `idPedido` = ?;");
             ps.setString(1,pedido.getFecha());
             ps.setDouble(2,pedido.getCostoTotal());
             ps.setDouble(3,pedido.getCantidadPago());
-            ps.setString(4,pedido.getHoraEntrega());
-            ps.setString(5,pedido.getStatus());
-            ps.setString(6,pedido.getNombreUsuario().getNombreUsuario());
-            ps.setInt(7,pedido.getIdDireccion().getId());
-            ps.setInt(8,pedido.getIdSucursal().getIdSucursal());
-            ps.setInt(9,pedido.getId());
+            ps.setString(4,pedido.getStatus());
+            ps.setString(5,pedido.getNombreUsuario().getNombreUsuario());
+            ps.setInt(6,pedido.getIdDireccion().getId());
+            ps.setInt(7,pedido.getIdSucursal().getIdSucursal());
+            ps.setInt(8,pedido.getId());
 
             flag = ps.executeUpdate() == 1;
 
@@ -177,7 +173,7 @@ public class PedidoDao {
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
             ps = con.prepareStatement("UPDATE pedido SET `status` = ? WHERE  `idPedido` = ?;");
-            ps.setString(1,"CANCELADO");
+            ps.setString(1,"Cancelado");
             ps.setInt(2,id);
             flag = ps.executeUpdate() == 1;
 
@@ -193,5 +189,7 @@ public class PedidoDao {
         }
         return flag;
     }
+
+
 
 }
