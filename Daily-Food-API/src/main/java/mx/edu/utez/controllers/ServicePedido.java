@@ -39,13 +39,34 @@ public class ServicePedido {
     @Path("/pedidosP")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public MyResponse getPedidosPreparacion() throws SQLException{
+    public MyResponse getAllPedidosPreparacion() throws SQLException{
         MyResponse response = new MyResponse();
-        List<Pedido> pedidos = ( new PedidoDao().getPedidosPreparacion());
+        List<Pedido> pedidos = ( new PedidoDao().getAllPedidosPreparacion());
         if(pedidos.size() > 0){
             response.setCode(200);
             response.setStatus("Success");
             response.setMessage("PEDIDOS EN PREPARACIÓN");
+            response.setData(pedidos);
+        }else{
+            response.setCode(400);
+            response.setStatus("Error");
+            response.setMessage("HUBO ERROR");
+            response.setData(null);
+        }
+        return response;
+    }
+
+    @GET
+    @Path("/pedidosP/{user}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getPedidosPreparacionByUser(@PathParam("user") String user) throws SQLException{
+        MyResponse response = new MyResponse();
+        List<Pedido> pedidos = ( new PedidoDao().getPedidosPreparacionByUser(user));
+        if(pedidos.size() > 0){
+            response.setCode(200);
+            response.setStatus("Success");
+            response.setMessage("PEDIDOS EN PREPARACIÓN BY USER");
             response.setData(pedidos);
         }else{
             response.setCode(400);
@@ -78,6 +99,90 @@ public class ServicePedido {
     }
 
     @GET
+    @Path("/pedidosC/{user}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getPedidosEnCursoByUser(@PathParam("user") String user) throws SQLException{
+        MyResponse response = new MyResponse();
+        List<Pedido> pedidos = ( new PedidoDao().getPedidosEnCursoByUser(user));
+        if(pedidos.size() > 0){
+            response.setCode(200);
+            response.setStatus("Success");
+            response.setMessage("PEDIDOS EN CURSO BY USER");
+            response.setData(pedidos);
+        }else{
+            response.setCode(400);
+            response.setStatus("Error");
+            response.setMessage("HUBO ERROR");
+            response.setData(null);
+        }
+        return response;
+    }
+
+    @GET
+    @Path("/pedidosE")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getPedidosEntregados() throws SQLException{
+        MyResponse response = new MyResponse();
+        List<Pedido> pedidos = ( new PedidoDao().getPedidosEntregados());
+        if(pedidos.size() > 0){
+            response.setCode(200);
+            response.setStatus("Success");
+            response.setMessage("PEDIDOS ENTREGADOS OBTENIDOS");
+            response.setData(pedidos);
+        }else{
+            response.setCode(400);
+            response.setStatus("Error");
+            response.setMessage("HUBO ERROR");
+            response.setData(null);
+        }
+        return response;
+    }
+
+    @GET
+    @Path("/pedidosE/{user}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getPedidosEntregadosByUser(@PathParam("user") String user) throws SQLException{
+        MyResponse response = new MyResponse();
+        List<Pedido> pedidos = ( new PedidoDao().getPedidosEntregadosByUser(user));
+        if(pedidos.size() > 0){
+            response.setCode(200);
+            response.setStatus("Success");
+            response.setMessage("PEDIDOS ENTREGADOS BY USER");
+            response.setData(pedidos);
+        }else{
+            response.setCode(400);
+            response.setStatus("Error");
+            response.setMessage("HUBO ERROR");
+            response.setData(null);
+        }
+        return response;
+    }
+
+    @GET
+    @Path("/pedidosF/{user}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getPedidosFinalizadosByUser(@PathParam("user") String user) throws SQLException{
+        MyResponse response = new MyResponse();
+        List<Pedido> pedidos = ( new PedidoDao().getPedidosFinalizadosByUser(user));
+        if(pedidos.size() > 0){
+            response.setCode(200);
+            response.setStatus("Success");
+            response.setMessage("PEDIDOS FINALIZADOS BY USER");
+            response.setData(pedidos);
+        }else{
+            response.setCode(400);
+            response.setStatus("Error");
+            response.setMessage("HUBO ERROR");
+            response.setData(null);
+        }
+        return response;
+    }
+
+    @GET
     @Path("/pedidos/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -96,7 +201,6 @@ public class ServicePedido {
             response.setMessage("ERROR READ PEDIDO BY ID");
             response.setData(null);
         }
-
         return response;
     }
 
