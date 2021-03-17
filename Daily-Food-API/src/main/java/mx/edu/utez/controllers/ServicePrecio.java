@@ -1,12 +1,14 @@
 package mx.edu.utez.controllers;
 
 
+import mx.edu.utez.platillo.model.Platillo;
 import mx.edu.utez.precio.model.Precio;
 import mx.edu.utez.precio.model.PrecioDao;
 import mx.edu.utez.response.MyResponse;
 import mx.edu.utez.sucursal.model.Sucursal;
 import mx.edu.utez.sucursal.model.SucursalDao;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
@@ -40,16 +42,34 @@ public class ServicePrecio {
         return response;
     }
 
+    @GET
+    @Path("/precio/{idPlatillo}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getPrecioByPlatillo(@PathParam("idPlatillo") int idPlatillo) throws SQLException{
+        MyResponse response = new MyResponse();
+        Precio precio = (new PrecioDao().getPrecioByPlatillo(idPlatillo));
+        if(precio != null && precio.getIdPrecio() != 0){
+            response.setCode(200);
+            response.setMessage("Precio obtenido");
+            response.setStatus("Success");
+            response.setData(precio);
+        }else{
+            response.setCode(400);
+            response.setMessage("Precio no obtenido");
+            response.setStatus("Error");
+            response.setData(precio);
+        }
+        return response;
+    }
+
     @POST
     @Path("/precios")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse createPrecio(Precio precio) throws SQLException{
-
         MyResponse response = new MyResponse();
-
         Precio precioCreated = (new PrecioDao().createPrecio(precio));
-
         if(precioCreated.getIdPrecio() != 0){
             response.setCode(200);
             response.setStatus("success");
@@ -61,7 +81,6 @@ public class ServicePrecio {
             response.setMessage("ERROR CREATED PRECIOS");
             response.setData(null);
         }
-
         return response;
     }
 

@@ -60,7 +60,6 @@ public class ServiceUsuario {
     @Consumes(MediaType.APPLICATION_JSON)
     public MyResponse createUsuario(Usuario usuario) throws SQLException {
         MyResponse resp = new MyResponse();
-
         Usuario creado = (new UsuarioDAO()).createUsuario(usuario);
         if ((!usuario.getNombreUsuario().isEmpty()) || usuario.getNombreUsuario() != null) {
             resp.setCode(200);

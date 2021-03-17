@@ -13,7 +13,7 @@ public class ConnectionDB {
     //Nombre de usuario para realizar la conexión
     public static String user = "root";
     //Contraseña
-    public static String password = "123456";
+    public static String password = "root";
     //Puerto /**Depende de la configuración de la máquina**/
     public static String port = "3306";
     //Zona horaria "no es necesario en todos los equipos"

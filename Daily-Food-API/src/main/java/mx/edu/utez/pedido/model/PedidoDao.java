@@ -17,17 +17,13 @@ public class PedidoDao {
 
     public List  getPedidos() throws SQLException {
         ArrayList<Pedido> list = new ArrayList();
-
         try{
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM pedido;");
-
             rs = ps.executeQuery();
-
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             DireccionDao direccionDao = new DireccionDao();
             SucursalDao sucursalDao = new SucursalDao();
-
             while(rs.next()){
                 Pedido pedido = new Pedido();
                 pedido.setId(rs.getInt(1));
@@ -39,10 +35,7 @@ public class PedidoDao {
                 pedido.setIdDireccion(direccionDao.getDireccionById(rs.getInt(7)));
                 pedido.setIdSucursal(sucursalDao.getSucursalById(rs.getInt(8)));
                 list.add(pedido);
-
             }
-
-
         }catch(Exception e){
             System.err.println("ERROR READ PEDIDO");
         }finally{
@@ -50,14 +43,73 @@ public class PedidoDao {
             if (rs != null) rs.close();
             if (con != null) con.close();
         }
-
         return list;
+    }
+
+    public List getPedidosPreparacion() throws SQLException{
+        ArrayList<Pedido> pedidosP = new ArrayList();
+        try{
+            con = ConnectionDB.getConnection();
+            ps = con.prepareStatement("SELECT * FROM pedido WHERE status LIKE 'Preparación'");
+            rs = ps.executeQuery();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            DireccionDao direccionDao = new DireccionDao();
+            SucursalDao sucursalDao = new SucursalDao();
+            while(rs.next()){
+                Pedido ped = new Pedido();
+                ped.setId(rs.getInt(1));
+                ped.setFecha(rs.getString(2));
+                ped.setCostoTotal(rs.getDouble(3));
+                ped.setCantidadPago(rs.getDouble(4));
+                ped.setStatus(rs.getString(5));
+                ped.setNombreUsuario(usuarioDAO.getUsuarioByUser(rs.getString(6)));
+                ped.setIdDireccion(direccionDao.getDireccionById(rs.getInt(7)));
+                ped.setIdSucursal(sucursalDao.getSucursalById(rs.getInt(8)));
+                pedidosP.add(ped);
+            }
+        }catch (Exception e) {
+            System.err.println("ERROR => " + e.getMessage());
+        }finally {
+            if (ps != null) ps.close();
+            if (rs != null) rs.close();
+            if (con != null) con.close();
+        }
+        return pedidosP;
+    }
+
+    public List getPedidosEnCurso() throws SQLException{
+        ArrayList<Pedido> pedidosC = new ArrayList();
+        try{
+            con = ConnectionDB.getConnection();
+            ps = con.prepareStatement("SELECT * FROM pedido WHERE status LIKE 'En curso'");
+            rs = ps.executeQuery();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            DireccionDao direccionDao = new DireccionDao();
+            SucursalDao sucursalDao = new SucursalDao();
+            while(rs.next()){
+                Pedido ped = new Pedido();
+                ped.setId(rs.getInt(1));
+                ped.setFecha(rs.getString(2));
+                ped.setCostoTotal(rs.getDouble(3));
+                ped.setCantidadPago(rs.getDouble(4));
+                ped.setStatus(rs.getString(5));
+                ped.setNombreUsuario(usuarioDAO.getUsuarioByUser(rs.getString(6)));
+                ped.setIdDireccion(direccionDao.getDireccionById(rs.getInt(7)));
+                ped.setIdSucursal(sucursalDao.getSucursalById(rs.getInt(8)));
+                pedidosC.add(ped);
+            }
+        }catch (Exception e) {
+            System.err.println("ERROR => " + e.getMessage());
+        }finally {
+            if (ps != null) ps.close();
+            if (rs != null) rs.close();
+            if (con != null) con.close();
+        }
+        return pedidosC;
     }
 
     public Pedido getPedidoById(int id) throws SQLException {
         Pedido pedido = new Pedido();
-
-
         try{
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM pedido WHERE `idPedido` = ?;");

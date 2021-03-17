@@ -3,6 +3,7 @@ package mx.edu.utez.controllers;
 import mx.edu.utez.pedido.model.Pedido;
 import mx.edu.utez.pedido.model.PedidoDao;
 import mx.edu.utez.response.MyResponse;
+import sun.nio.cs.ext.MacUkraine;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -31,7 +32,48 @@ public class ServicePedido {
             response.setMessage("ERROR READ PEDIDOS");
             response.setData(null);
         }
+        return response;
+    }
 
+    @GET
+    @Path("/pedidosP")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getPedidosPreparacion() throws SQLException{
+        MyResponse response = new MyResponse();
+        List<Pedido> pedidos = ( new PedidoDao().getPedidosPreparacion());
+        if(pedidos.size() > 0){
+            response.setCode(200);
+            response.setStatus("Success");
+            response.setMessage("PEDIDOS EN PREPARACIÓN");
+            response.setData(pedidos);
+        }else{
+            response.setCode(400);
+            response.setStatus("Error");
+            response.setMessage("HUBO ERROR");
+            response.setData(null);
+        }
+        return response;
+    }
+
+    @GET
+    @Path("/pedidosC")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getPedidosEnCurso() throws SQLException{
+        MyResponse response = new MyResponse();
+        List<Pedido> pedidos = ( new PedidoDao().getPedidosEnCurso());
+        if(pedidos.size() > 0){
+            response.setCode(200);
+            response.setStatus("Success");
+            response.setMessage("PEDIDOS EN CURSO");
+            response.setData(pedidos);
+        }else{
+            response.setCode(400);
+            response.setStatus("Error");
+            response.setMessage("HUBO ERROR");
+            response.setData(null);
+        }
         return response;
     }
 

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PedidoTienePlatiloDao {
+public class PedidoTienePlatilloDao {
 
     Connection con;
     PreparedStatement ps;
@@ -20,7 +20,6 @@ public class PedidoTienePlatiloDao {
 
     public List readPlatilloByMenu(int id) throws SQLException{
         ArrayList<PedidoTienePlatillo> list = new ArrayList();
-
         try{
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM pedidotieneplatillo WHERE idPedido = ?");
