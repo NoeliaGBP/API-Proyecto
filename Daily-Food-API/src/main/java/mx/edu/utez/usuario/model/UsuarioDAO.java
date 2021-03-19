@@ -47,6 +47,38 @@ public class UsuarioDAO {
         return usuarios;
     }
 
+    public List<Usuario> getEmpleados() {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        try {
+            Connection con = ConnectionDB.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM usuario WHERE idRol = 2 OR idRol = 3");
+            ResultSet rs = ps.executeQuery();
+            PersonaDAO personaDAO = new PersonaDAO();
+            RolDAO rolDAO = new RolDAO();
+            while (rs.next()) {
+                if (rs != null) {
+                    Usuario usuario = new Usuario();
+                    usuario.setNombreUsuario(rs.getString(1));
+                    usuario.setContrasenia("PRIVATE");
+                    usuario.setToken(rs.getInt(3));
+                    usuario.setCorreo(rs.getString(4));
+                    usuario.setTelefono(rs.getString(5));
+                    usuario.setIdPersona(personaDAO.getPersonaById(rs.getInt(6)));
+                    usuario.setIdRol(rolDAO.getRolById(rs.getInt(7)));
+                    usuarios.add(usuario);
+
+                }
+            }
+            if (con!=null) con.close();
+            if (ps!=null) ps.close();
+            if (rs!=null) rs.close();
+        } catch (Exception e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
+
     public Usuario getUsuarioByUser(String user) {
         Usuario usuario = new Usuario();
         try {

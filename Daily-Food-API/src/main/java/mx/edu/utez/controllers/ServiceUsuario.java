@@ -36,6 +36,25 @@ public class ServiceUsuario {
     }
 
     @GET
+    @Path("/empleados")
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyResponse getEmpleados() {
+        MyResponse resp = new MyResponse();
+        List<Usuario> list = (new UsuarioDAO().getEmpleados());
+        if (list.size() != 0) {
+            resp.setCode(200);
+            resp.setMessage("Usuarios");
+            resp.setStatus("success");
+            resp.setData(list);
+        } else {
+            resp.setCode(400);
+            resp.setMessage("Error");
+            resp.setStatus("error");
+        }
+        return resp;
+    }
+
+    @GET
     @Path("/usuarios/{user}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getUsuarioByUser(@PathParam("user") String user) {
