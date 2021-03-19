@@ -28,8 +28,8 @@ public class UsuarioDAO {
                     usuario.setNombreUsuario(rs.getString(1));
                     usuario.setContrasenia("PRIVATE");
                     usuario.setToken(rs.getInt(3));
-                    usuario.setIdPersona(personaDAO.getPersonaById(rs.getInt(4)));
-                    usuario.setIdRol(rolDAO.getRolById(rs.getInt(5)));
+                    usuario.setIdPersona(personaDAO.getPersonaById(rs.getInt(6)));
+                    usuario.setIdRol(rolDAO.getRolById(rs.getInt(7)));
                     usuarios.add(usuario);
                 }
             }
