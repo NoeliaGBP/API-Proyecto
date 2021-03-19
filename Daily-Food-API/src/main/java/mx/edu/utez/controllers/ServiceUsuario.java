@@ -129,6 +129,30 @@ public class ServiceUsuario {
         return resp;
     }
 
+    @POST
+    @Path("/login2")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public MyResponse login2 (Usuario usuario) throws SQLException {
+        MyResponse resp = new MyResponse();
+
+        Usuario user = (new UsuarioDAO().login(usuario)) ;
+        if (user != null){
+            user.setToken(0);
+            user.setContrasenia("");
+
+            resp.setCode(200);
+            resp.setMessage("Sesión iniciada");
+            resp.setStatus("success");
+            resp.setData(user);
+        } else {
+            resp.setCode(400);
+            resp.setMessage("Usuario o contraseña erroneos");
+            resp.setStatus("error");
+        }
+        return resp;
+    }
+
 
 
     @PUT
