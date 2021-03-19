@@ -15,7 +15,7 @@ public class TipoPlatilloDao {
         ArrayList<TipoPlatillo> list = new ArrayList();
         try{
             con = ConnectionDB.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tipoplatillo;");
+            ps = con.prepareStatement("SELECT * FROM tipoPlatillo;");
             rs = ps.executeQuery();
 
             while(rs.next()){
@@ -40,7 +40,7 @@ public class TipoPlatilloDao {
         TipoPlatillo tipoPlatillo = new TipoPlatillo();
         try{
             con = ConnectionDB.getConnection();
-            ps = con.prepareStatement("SELECT * FROM tipoplatillo WHERE idTipoPlatillo = ?;");
+            ps = con.prepareStatement("SELECT * FROM tipoPlatillo WHERE idTipoPlatillo = ?;");
             ps.setInt(1,id);
             rs = ps.executeQuery();
 
@@ -66,7 +66,7 @@ public class TipoPlatilloDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            ps = con.prepareStatement("INSERT INTO tipoplatillo (nombreTipo) VALUES (?);", Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement("INSERT INTO tipoPlatillo (nombreTipo) VALUES (?);", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,object.getNombreTipo());
 
             boolean flag = ps.executeUpdate() == 1;
@@ -101,7 +101,7 @@ public class TipoPlatilloDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            ps = con.prepareStatement("UPDATE tipoplatillo SET nombreTipo = ? WHERE idTipoPlatillo = ?;");
+            ps = con.prepareStatement("UPDATE tipoPlatillo SET nombreTipo = ? WHERE idTipoPlatillo = ?;");
             ps.setString(1,object.getNombreTipo());
             ps.setInt(2,object.getIdTipoPlatillo());
             flag = ps.executeUpdate() == 1;
@@ -126,7 +126,7 @@ public class TipoPlatilloDao {
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            ps = con.prepareStatement("DELETE FROM tipoplatillo WHERE idTipoPlatillo = ?");
+            ps = con.prepareStatement("DELETE FROM tipoPlatillo WHERE idTipoPlatillo = ?");
             ps.setInt(1 , id);
 
             flag = ps.executeUpdate() == 1;

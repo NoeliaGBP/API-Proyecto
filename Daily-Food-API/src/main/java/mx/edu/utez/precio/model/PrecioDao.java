@@ -1,5 +1,6 @@
 package mx.edu.utez.precio.model;
 
+import mx.edu.utez.platillo.model.Platillo;
 import mx.edu.utez.platillo.model.PlatilloDao;
 import mx.edu.utez.tools.ConnectionDB;
 
@@ -14,13 +15,10 @@ public class PrecioDao {
 
     public List readPrecios() throws SQLException {
         ArrayList<Precio> list = new ArrayList();
-
         try{
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM precio;");
-
             rs = ps.executeQuery();
-
             PlatilloDao precioDao = new PlatilloDao();
             while(rs.next()){
                 Precio precio = new Precio();
@@ -29,24 +27,37 @@ public class PrecioDao {
                 precio.setIdPlatillo(precioDao.getPlatilloById(rs.getInt(3)));
                 list.add(precio);
             }
-
         }catch(Exception e){
             System.err.println("Error"+e.getMessage());
         }finally{
-            if(rs != null){
-                rs.close();
-            }
-
-            if(ps != null){
-                ps.close();
-            }
-            if(con != null){
-                con.close();
-            }
-
+            if(rs != null){rs.close();}
+            if(ps != null){ps.close();}
+            if(con != null){con.close();}
         }
-
         return list;
+    }
+
+    public Precio getPrecioByPlatillo(int idPlatillo) throws SQLException{
+        Precio precio = new Precio();
+        try{
+            con = ConnectionDB.getConnection();
+            ps = con.prepareStatement("SELECT * FROM precio WHERE idPlatillo = ?;");
+            ps.setInt(1, idPlatillo);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                PlatilloDao platilloD = new PlatilloDao();
+                precio.setIdPrecio(rs.getInt(1));
+                precio.setPrecio(rs.getDouble(2));
+                precio.setIdPlatillo(platilloD.getPlatilloById(rs.getInt(3)));
+            }
+        }catch (Exception e){
+            System.err.println("Error msg: " + e.getMessage());
+        }finally {
+            con.close();
+            rs.close();
+            ps.close();
+        }
+        return precio;
     }
 
     public Precio createPrecio(Precio precio) throws SQLException{

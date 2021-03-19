@@ -4,10 +4,7 @@ import mx.edu.utez.dia.model.DiaDao;
 import mx.edu.utez.sucursal.model.SucursalDao;
 import mx.edu.utez.tools.ConnectionDB;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +68,7 @@ public class TipoDiaDao {
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
             PreparedStatement ps = con.prepareStatement("INSERT INTO tipodia (`diaCompra`, `diaRegistro`, " +
-                    "`idSucursal`, `idDia`) VALUES (?,?,?,?)");
+                    "`idSucursal`, `idDia`) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setBoolean(1, tipoDiaX.isDiaCompra());
             ps.setBoolean(2, tipoDiaX.isDiaRegistro());
             ps.setInt(3, tipoDiaX.getIdSucursal().getIdSucursal());

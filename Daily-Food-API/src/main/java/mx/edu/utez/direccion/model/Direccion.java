@@ -5,7 +5,7 @@ public class Direccion {
     private int id;
     private double latitud;
     private double longitud;
-    private double altitud;
+
 
     public Direccion(){
 
@@ -35,11 +35,4 @@ public class Direccion {
         this.longitud = longitud;
     }
 
-    public double getAltitud() {
-        return altitud;
-    }
-
-    public void setAltitud(double altitud) {
-        this.altitud = altitud;
-    }
 }

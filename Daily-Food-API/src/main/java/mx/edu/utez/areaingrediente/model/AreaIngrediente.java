@@ -6,6 +6,7 @@ public class AreaIngrediente {
 
     public AreaIngrediente(){
 
+
     }
 
 

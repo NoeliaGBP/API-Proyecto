@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
 
-@Path("/menuDia")
+@Path("/daily")
 public class ServicioMenuDia {
 
     @GET
@@ -38,7 +38,7 @@ public class ServicioMenuDia {
         MyResponse response = new MyResponse();
         MenuDia menuDia = (new MenuDiaDao().getMenuDiaById(idMenuD));
         response.setData(menuDia);
-        if(response.getData() != null){
+        if(menuDia.getIdMenuDia() >0){
             response.setStatus("success");
             response.setCode(200);
             response.setMessage("Se realizo la consulta con éxito");

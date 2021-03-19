@@ -26,7 +26,7 @@ public class DireccionDao {
                 direccion.setId(rs.getInt(1));
                 direccion.setLatitud(rs.getDouble(2));
                 direccion.setLongitud(rs.getDouble(3));
-                direccion.setAltitud(rs.getDouble(4));
+
 
                 list.add(direccion);
             }
@@ -56,7 +56,7 @@ public class DireccionDao {
                 direccion.setId(rs.getInt(1));
                 direccion.setLatitud(rs.getDouble(2));
                 direccion.setLongitud(rs.getDouble(3));
-                direccion.setAltitud(rs.getDouble(4));
+
             }
         } catch (Exception e) {
             System.err.println("Error Direccion By Id " + e.getMessage());
@@ -74,10 +74,10 @@ public class DireccionDao {
         try {
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
-            ps = con.prepareStatement("INSERT INTO `direccion` (`latitud`,`longitud`,`altitud`) VALUES (?,?,?);", Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement("INSERT INTO `direccion` (`latitud`,`longitud`) VALUES (?,?);", Statement.RETURN_GENERATED_KEYS);
             ps.setDouble(1, object.getLatitud());
             ps.setDouble(2, object.getLongitud());
-            ps.setDouble(3, object.getAltitud());
+
 
             condition = ps.executeUpdate() == 1;
 
@@ -115,11 +115,10 @@ public class DireccionDao {
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
 
-            ps = con.prepareStatement("UPDATE direccion SET `latitud` = ? , `longitud` = ? , `altitud` = ? WHERE `idDireccion` = ?;");
+            ps = con.prepareStatement("UPDATE direccion SET `latitud` = ? , `longitud` = ?  WHERE `idDireccion` = ?;");
             ps.setDouble(1, object.getLatitud());
             ps.setDouble(2, object.getLongitud());
-            ps.setDouble(3, object.getAltitud());
-            ps.setInt(4, object.getId());
+            ps.setInt(3, object.getId());
 
             flag = ps.executeUpdate() == 1;
 

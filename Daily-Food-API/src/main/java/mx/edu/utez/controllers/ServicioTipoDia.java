@@ -36,7 +36,7 @@ public class ServicioTipoDia {
         MyResponse response = new MyResponse();
         TipoDia tipoDia = (new TipoDiaDao().getTipoDiaById(idTipoDia));
         response.setData(tipoDia);
-        if(response.getData() != null){
+        if(tipoDia.getIdTipoDia()>0){
             response.setStatus("success");
             response.setCode(200);
             response.setMessage("Se realizo la consulta con éxito");

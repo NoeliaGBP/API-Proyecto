@@ -11,9 +11,8 @@ public class Pedido {
 
     private int id;
     private String fecha;
-    private double cantidadTotal;
+    private double costoTotal;
     private double cantidadPago;
-    private String horaEntrega;
     private String status;
     private Usuario nombreUsuario;
     private Direccion  idDireccion;
@@ -39,12 +38,12 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public double getCantidadTotal() {
-        return cantidadTotal;
+    public double getCostoTotal() {
+        return costoTotal;
     }
 
-    public void setCantidadTotal(double cantidadTotal) {
-        this.cantidadTotal = cantidadTotal;
+    public void setCostoTotal(double costoTotal) {
+        this.costoTotal = costoTotal;
     }
 
     public double getCantidadPago() {
@@ -53,14 +52,6 @@ public class Pedido {
 
     public void setCantidadPago(double cantidadPago) {
         this.cantidadPago = cantidadPago;
-    }
-
-    public String getHoraEntrega() {
-        return horaEntrega;
-    }
-
-    public void setHoraEntrega(String horaEntrega) {
-        this.horaEntrega = horaEntrega;
     }
 
     public String getStatus() {
