@@ -1,6 +1,7 @@
 package mx.edu.utez.controllers;
 
 import mx.edu.utez.platillo.model.Platillo;
+import mx.edu.utez.platillo.model.PlatilloCompleto;
 import mx.edu.utez.platillo.model.PlatilloDao;
 import mx.edu.utez.response.MyResponse;
 
@@ -37,18 +38,18 @@ public class ServicePlatillo {
     @Path("/platillos/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public MyResponse getPlatillosById(@PathParam("id") int id) throws SQLException{
+    public MyResponse getPlatilloCompletoById(@PathParam("id") int id) throws SQLException{
         MyResponse response = new MyResponse();
-        Platillo platillo = (new PlatilloDao().getPlatilloById(id));
-        if(platillo.getIdPlatillo() > 0){
+        PlatilloCompleto platillo = (new PlatilloDao().getPlatilloCompletoById(id));
+        if(platillo.getPlatillo().getIdPlatillo() > 0){
             response.setCode(200);
             response.setStatus("success");
-            response.setMessage("READ PLATILLO BY ID");
+            response.setMessage("PLATILLO COMPLETO RECUPERADO EXITOSAMENTE");
             response.setData(platillo);
         }else{
             response.setCode(400);
             response.setStatus("error");
-            response.setMessage("ERROR READ PLATILLO BY ID");
+            response.setMessage("ERROR AL RECUPERAR EL PLATILLO");
             response.setData(null);
         }
         return response;

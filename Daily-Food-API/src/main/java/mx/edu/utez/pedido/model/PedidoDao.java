@@ -15,8 +15,8 @@ public class PedidoDao {
     PreparedStatement ps;
     ResultSet rs;
 
-    public List  getPedidos() throws SQLException {
-        ArrayList<Pedido> list = new ArrayList();
+    /*public List  getPedidos() throws SQLException {
+        ArrayList<PedidoCompleto> list = new ArrayList();
         try{
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM pedido;");
@@ -44,7 +44,7 @@ public class PedidoDao {
             if (con != null) con.close();
         }
         return list;
-    }
+    }*/
 
     public List getAllPedidosPreparacion() throws SQLException{
         ArrayList<Pedido> pedidosP = new ArrayList();
@@ -400,7 +400,5 @@ public class PedidoDao {
         }
         return flag;
     }
-
-
 
 }

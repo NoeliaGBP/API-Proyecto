@@ -1,5 +1,9 @@
 package mx.edu.utez.platillo.model;
 
+import mx.edu.utez.imagenplatillo.model.ImagenPlatilloDAO;
+import mx.edu.utez.ingredientePlatillo.model.IngredientePlatilloDao;
+import mx.edu.utez.precio.model.PrecioDao;
+import mx.edu.utez.preparacion.model.PreparacionDao;
 import mx.edu.utez.tipoPlatillo.model.TipoPlatilloDao;
 import mx.edu.utez.tools.ConnectionDB;
 
@@ -32,7 +36,6 @@ public class PlatilloDao {
                 platillo.setIdTipoPlatillo(tipoPlatilloDao.getTipoPlatilloById(rs.getInt(5)));
                 list.add(platillo);
             }
-
         }catch(Exception e){
             System.err.println(e.getMessage());
         }finally{
@@ -40,8 +43,40 @@ public class PlatilloDao {
             if(rs!=null)rs.close();
             if(ps!=null)ps.close();
         }
-
         return list;
+    }
+
+    public PlatilloCompleto getPlatilloCompletoById(int id) throws SQLException{
+        PlatilloCompleto platillo = new PlatilloCompleto();
+        try{
+            con = ConnectionDB.getConnection();
+            ps = con.prepareStatement("SELECT p.idPlatillo, img.idImagenPlatillo FROM platillo p\n" +
+                    "INNER JOIN imagenPlatillo img ON p.idPlatillo = img.idPlatillo WHERE p.idPlatillo = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            PlatilloDao dao = new PlatilloDao();
+            ImagenPlatilloDAO imagenDao = new ImagenPlatilloDAO();
+            PrecioDao precio = new PrecioDao();
+            IngredientePlatilloDao ingredientes = new IngredientePlatilloDao();
+            PreparacionDao preparacion = new PreparacionDao();
+            while(rs.next()){
+                platillo.setPlatillo(dao.getPlatilloById(rs.getInt(1)));
+                platillo.setImagen(imagenDao.getImagenPlatilloById(rs.getInt(2)));
+                platillo.setPrecio(precio.getPrecioByPlatillo(rs.getInt(1)));
+                platillo.setPreparacion(preparacion.readPreparacionById(rs.getInt(1)));
+                platillo.setIngredientes(ingredientes.getIngredientesByPlatillo(rs.getInt(1)));
+                platillo.getImagen().setIdPlatillo(null);
+                platillo.getPrecio().setIdPlatillo(null);
+                platillo.getPreparacion().setIdPlatillo(null);
+            }
+        }catch(Exception e){
+            System.err.println("ERROR EN OBTENER PLATILLO COMPLETO");
+        }finally{
+            if(con!=null) con.close();
+            if(rs!=null)rs.close();
+            if(ps!=null)ps.close();
+        }
+        return platillo;
     }
 
     public Platillo getPlatilloById(int id) throws SQLException{

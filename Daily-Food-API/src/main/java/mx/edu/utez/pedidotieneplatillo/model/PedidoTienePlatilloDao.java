@@ -1,6 +1,8 @@
 package mx.edu.utez.pedidotieneplatillo.model;
 
+import mx.edu.utez.pedido.model.PedidoCompleto;
 import mx.edu.utez.pedido.model.PedidoDao;
+import mx.edu.utez.platillo.model.Platillo;
 import mx.edu.utez.platilloenmenu.model.PlatilloEnMenu;
 import mx.edu.utez.platilloenmenu.model.PlatilloEnMenuDao;
 import mx.edu.utez.tools.ConnectionDB;
@@ -17,6 +19,28 @@ public class PedidoTienePlatilloDao {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
+/*
+    public PedidoCompleto getAllInfoPedido(int idPedido) throws SQLException{
+        PedidoCompleto pedido = new PedidoCompleto();
+        try{
+            con = ConnectionDB.getConnection();
+            ps = con.prepareStatement("SELECT ptp.idMenuPlatillo, ptp.cantidad, ptp.comentario, p.nombreUsuario, p.idPedido FROM pedido p\n" +
+                    "INNER JOIN pedidoTienePlatillo ptp ON p.idPedido = ptp.idPedido\n" +
+                    "INNER JOIN usuario u ON p.nombreUsuario = u.nombreUsuario\n" +
+                    "WHERE ptp.idPedido = ?;");
+            ps.setInt(1, idPedido);
+            rs = ps.executeQuery();
+            ArrayList<PedidoTienePlatillo> ptp = new ArrayList<>();
+            ArrayList<Platillo> platillos = new ArrayList<>();
+            PedidoTienePlatilloDao dao = new PedidoTienePlatilloDao();
+            while(rs.next()){
+                PedidoTienePlatillo p = new PedidoTienePlatillo();
+                p.setIdMenuPlatillo(dao.getPlatillosByMenu(rs.getInt(1)));
+            }
+        }catch (Exception e){
+            System.err.println("ERROR AL TRAER INFO PEDIDO");
+        }
+    }*/
 
     public List readPlatilloByMenu(int id) throws SQLException{
         ArrayList<PedidoTienePlatillo> list = new ArrayList();
@@ -24,39 +48,25 @@ public class PedidoTienePlatilloDao {
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM pedidotieneplatillo WHERE idPedido = ?");
             ps.setInt(1,id);
-
             rs = ps.executeQuery();
-
             PedidoDao pedidoDao = new PedidoDao();
             PlatilloEnMenuDao platilloEnMenuDao = new PlatilloEnMenuDao();
-
             while(rs.next()){
                 PedidoTienePlatillo object = new PedidoTienePlatillo();
                 object.setIdPedido(pedidoDao.getPedidoById(rs.getInt(1)));
                 object.setIdMenuPlatillo(platilloEnMenuDao.getPlatilloEnMenuById(rs.getInt(2)));
                 object.setCantidad(rs.getInt(3));
                 object.setComentario(rs.getString(4));
-
                 list.add(object);
             }
         }catch(Exception e){
             con.rollback();
             System.err.println("ERROR PEDIDO TIENE PROMOCION  "+e.getMessage());
         }finally{
-            if(rs != null){
-                rs.close();
-            }
-
-            if( ps != null){
-                ps.close();
-            }
-
-            if(con != null){
-                con.close();
-            }
-
+            if(rs != null){rs.close();}
+            if(ps != null){ps.close();}
+            if(con != null){con.close();}
         }
-
         return list;
     }
 

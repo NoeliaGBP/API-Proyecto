@@ -58,7 +58,7 @@ public class IngredientePlatilloDao {
             while(rs.next()){
                 IngredientePlatillo ingredientePlatillo = new IngredientePlatillo();
                 ingredientePlatillo.setIdIngrediente(daoIngrediente.getIngredienteById(rs.getInt(1)));
-                ingredientePlatillo.setIdPlatillo(daoPlatillo.getPlatilloById(rs.getInt(2)));
+                //ingredientePlatillo.setIdPlatillo(daoPlatillo.getPlatilloById(rs.getInt(2)));
                 ingredientePlatillo.setPorcion(rs.getDouble(3));
                 ingredientePlatillo.setIdUnidadMedida(daoUnidadMedida.getUnidadMedidaById(rs.getInt(4)));
                 list.add(ingredientePlatillo);

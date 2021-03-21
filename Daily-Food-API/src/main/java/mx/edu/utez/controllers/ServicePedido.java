@@ -13,7 +13,7 @@ import java.util.List;
 @Path("/daily")
 public class ServicePedido {
 
-    @GET
+    /*@GET
     @Path("/pedidos")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -33,7 +33,7 @@ public class ServicePedido {
             response.setData(null);
         }
         return response;
-    }
+    }*/
 
     @GET
     @Path("/pedidosP")
