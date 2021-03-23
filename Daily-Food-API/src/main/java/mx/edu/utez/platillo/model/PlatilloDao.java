@@ -19,14 +19,11 @@ public class PlatilloDao {
 
     public List getPlatillo() throws SQLException {
         ArrayList<Platillo> list = new ArrayList();
-
         try{
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM platillo;");
             rs = ps.executeQuery();
-
             TipoPlatilloDao tipoPlatilloDao = new TipoPlatilloDao();
-
             while(rs.next()){
                 Platillo platillo = new Platillo();
                 platillo.setIdPlatillo(rs.getInt(1));
@@ -81,13 +78,11 @@ public class PlatilloDao {
 
     public Platillo getPlatilloById(int id) throws SQLException{
         Platillo platillo = new Platillo();
-
         try{
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM platillo WHERE idPlatillo = ?;");
             ps.setInt(1,id);
             rs = ps.executeQuery();
-
             while(rs.next()){
                 TipoPlatilloDao tipoPlatillo = new TipoPlatilloDao();
                 platillo.setIdPlatillo(rs.getInt(1));
@@ -96,7 +91,6 @@ public class PlatilloDao {
                 platillo.setDescripcion(rs.getString(4));
                 platillo.setIdTipoPlatillo(tipoPlatillo.getTipoPlatilloById(rs.getInt(5)));
             }
-
         }catch(Exception e){
             System.err.println(e.getMessage());
         }finally{

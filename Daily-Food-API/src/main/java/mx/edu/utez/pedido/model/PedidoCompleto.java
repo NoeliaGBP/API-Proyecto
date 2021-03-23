@@ -8,26 +8,34 @@ import java.util.ArrayList;
 
 public class PedidoCompleto {
 
-    private int idPedido;
+    private Pedido idPedido;
     private Persona persona;
+    private String telefono;
     private ArrayList<PedidoTienePlatillo> pedidoplatillos;
-    private ArrayList<Platillo> platillos;
 
     public PedidoCompleto() {
     }
 
-    public PedidoCompleto(int idPedido, Persona persona, ArrayList<PedidoTienePlatillo> pedidoplatillos, ArrayList<Platillo> platillos) {
+    public PedidoCompleto(Pedido idPedido, Persona persona, String telefono, ArrayList<PedidoTienePlatillo> pedidoplatillos) {
         this.idPedido = idPedido;
         this.persona = persona;
+        this.telefono = telefono;
         this.pedidoplatillos = pedidoplatillos;
-        this.platillos = platillos;
     }
 
-    public int getIdPedido() {
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Pedido getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(int idPedido) {
+    public void setIdPedido(Pedido idPedido) {
         this.idPedido = idPedido;
     }
 
@@ -45,13 +53,5 @@ public class PedidoCompleto {
 
     public void setPedidoplatillos(ArrayList<PedidoTienePlatillo> pedidoplatillos) {
         this.pedidoplatillos = pedidoplatillos;
-    }
-
-    public ArrayList<Platillo> getPlatillos() {
-        return platillos;
-    }
-
-    public void setPlatillos(ArrayList<Platillo> platillos) {
-        this.platillos = platillos;
     }
 }

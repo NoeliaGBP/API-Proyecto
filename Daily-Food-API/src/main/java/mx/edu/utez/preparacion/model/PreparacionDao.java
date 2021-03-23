@@ -83,14 +83,11 @@ public class PreparacionDao {
 
     public List readPreparacionByPlatillo(int id) throws SQLException {
         ArrayList<Preparacion> list = new ArrayList();
-
         try{
             con = ConnectionDB.getConnection();
             ps = con.prepareStatement("SELECT * FROM  preparacion WHERE idPlatillo = ?;");
             ps.setInt(1, id);
-
             rs = ps.executeQuery();
-
             PlatilloDao platilloDao = new PlatilloDao();
             while(rs.next()){
                 Preparacion object = new Preparacion();
@@ -99,7 +96,6 @@ public class PreparacionDao {
                 object.setIdPlatillo(platilloDao.getPlatilloById(rs.getInt(3)));
                 list.add(object);
             }
-
         }catch(Exception e){
             System.err.println("ERROR "+e.getMessage() );
         }finally {

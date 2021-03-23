@@ -1,6 +1,7 @@
 package mx.edu.utez.pedidotieneplatillo.model;
 
 import mx.edu.utez.pedido.model.Pedido;
+import mx.edu.utez.platillo.model.Platillo;
 import mx.edu.utez.platilloenmenu.model.PlatilloEnMenu;
 
 public class PedidoTienePlatillo {
@@ -8,6 +9,15 @@ public class PedidoTienePlatillo {
     private PlatilloEnMenu idMenuPlatillo;
     private int cantidad;
     private String comentario;
+    private String platillo;
+
+    public String getPlatillo() {
+        return platillo;
+    }
+
+    public void setPlatillo(String platillo) {
+        this.platillo = platillo;
+    }
 
     public Pedido getIdPedido() {
         return idPedido;

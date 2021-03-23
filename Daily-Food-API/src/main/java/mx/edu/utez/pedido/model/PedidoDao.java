@@ -1,6 +1,9 @@
 package mx.edu.utez.pedido.model;
 
 import mx.edu.utez.direccion.model.DireccionDao;
+import mx.edu.utez.pedidotieneplatillo.model.PedidoTienePlatillo;
+import mx.edu.utez.pedidotieneplatillo.model.PedidoTienePlatilloDao;
+import mx.edu.utez.persona.model.PersonaDAO;
 import mx.edu.utez.sucursal.model.SucursalDao;
 import mx.edu.utez.tools.ConnectionDB;
 import mx.edu.utez.usuario.model.Usuario;
@@ -47,28 +50,32 @@ public class PedidoDao {
     }*/
 
     public List getAllPedidosPreparacion() throws SQLException{
-        ArrayList<Pedido> pedidosP = new ArrayList();
+        ArrayList<PedidoCompleto> pedidosP = new ArrayList();
         try{
             con = ConnectionDB.getConnection();
-            ps = con.prepareStatement("SELECT * FROM pedido WHERE status LIKE 'Preparación'");
+            ps = con.prepareStatement("SELECT p.idPedido, p.fecha, p.costoTotal, p.cantidadPago, p.nombreUsuario FROM pedido p \n" +
+                    "INNER JOIN pedidotieneplatillo ptp ON p.idPedido = ptp.idPedido\n" +
+                    "INNER JOIN platilloenmenu pem ON ptp.idMenuPlatillo = pem.idMenuPlatillo\n" +
+                    "INNER JOIN platillo pl ON pem.idPlatillo = pl.idPlatillo WHERE p.status LIKE 'Preparación' GROUP BY p.idPedido");
             rs = ps.executeQuery();
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            DireccionDao direccionDao = new DireccionDao();
-            SucursalDao sucursalDao = new SucursalDao();
+            PersonaDAO persona = new PersonaDAO();
+            PedidoTienePlatilloDao ptp = new PedidoTienePlatilloDao();
             while(rs.next()){
-                Pedido ped = new Pedido();
-                ped.setId(rs.getInt(1));
-                ped.setFecha(rs.getString(2));
-                ped.setCostoTotal(rs.getDouble(3));
-                ped.setCantidadPago(rs.getDouble(4));
-                ped.setStatus(rs.getString(5));
-                ped.setNombreUsuario(usuarioDAO.getUsuarioByUser(rs.getString(6)));
-                ped.setIdDireccion(direccionDao.getDireccionById(rs.getInt(7)));
-                ped.setIdSucursal(sucursalDao.getSucursalById(rs.getInt(8)));
+                PedidoCompleto ped = new PedidoCompleto();
+                Pedido p = new Pedido();
+                p.setId(rs.getInt(1));
+                p.setFecha(rs.getString(2));
+                p.setCostoTotal(rs.getDouble(3));
+                p.setCantidadPago(rs.getDouble(4));
+                ped.setIdPedido(p);
+                ped.setPersona(persona.getPersonaById(usuarioDAO.getUsuarioByUser(rs.getString(5)).getIdPersona().getIdPersona()));
+                ped.setTelefono(usuarioDAO.getUsuarioByUser(rs.getString(5)).getTelefono());
+                ped.setPedidoplatillos(ptp.getPlatillosByPedido(rs.getInt(1)));
                 pedidosP.add(ped);
             }
         }catch (Exception e) {
-            System.err.println("ERROR => " + e.getMessage());
+            System.err.println("ERROR DAO getAllPedidosPreparación=> " + e.getMessage());
         }finally {
             if (ps != null) ps.close();
             if (rs != null) rs.close();

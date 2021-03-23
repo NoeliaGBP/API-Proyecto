@@ -1,6 +1,7 @@
 package mx.edu.utez.controllers;
 
 import mx.edu.utez.pedido.model.Pedido;
+import mx.edu.utez.pedido.model.PedidoCompleto;
 import mx.edu.utez.pedido.model.PedidoDao;
 import mx.edu.utez.response.MyResponse;
 import sun.nio.cs.ext.MacUkraine;
@@ -41,7 +42,7 @@ public class ServicePedido {
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getAllPedidosPreparacion() throws SQLException{
         MyResponse response = new MyResponse();
-        List<Pedido> pedidos = ( new PedidoDao().getAllPedidosPreparacion());
+        List<PedidoCompleto> pedidos = ( new PedidoDao().getAllPedidosPreparacion());
         if(pedidos.size() > 0){
             response.setCode(200);
             response.setStatus("Success");
