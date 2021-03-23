@@ -8,9 +8,18 @@ public class Ponderacion {
     private int ponderacion;
     private String comentario;
     private Pedido idPedido;
+    private String nombreUsuario;
 
     public Ponderacion(){
 
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public int getId() {

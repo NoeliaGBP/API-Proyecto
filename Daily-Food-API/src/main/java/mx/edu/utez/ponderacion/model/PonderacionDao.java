@@ -15,19 +15,19 @@ public class PonderacionDao {
 
     public List getPonderacion() throws SQLException {
         ArrayList<Ponderacion> list = new ArrayList();
-
         try {
             con = ConnectionDB.getConnection();
-            ps = con.prepareStatement("SELECT * FROM ponderacion;");
+            ps = con.prepareStatement("SELECT c.comentario, c.ponderacion, u.nombreUsuario FROM ponderacion c \n" +
+                    "INNER JOIN pedido p ON c.idPedido = p.idPedido \n" +
+                    "INNER JOIN usuario u ON p.nombreUsuario = u.nombreUsuario\n" +
+                    "WHERE ponderacion > 3 LIMIT 10;");
             rs = ps.executeQuery();
-
             PedidoDao pedidoDao = new PedidoDao();
             while (rs.next()) {
                 Ponderacion ponderacion = new Ponderacion();
-                ponderacion.setId(rs.getInt(1));
+                ponderacion.setComentario(rs.getString(1));
                 ponderacion.setPonderacion(rs.getInt(2));
-                ponderacion.setComentario(rs.getString(3));
-                ponderacion.setIdPedido(pedidoDao.getPedidoById(rs.getInt(4)));
+                ponderacion.setNombreUsuario(rs.getString(3));
                 list.add(ponderacion);
             }
         } catch (Exception e) {
