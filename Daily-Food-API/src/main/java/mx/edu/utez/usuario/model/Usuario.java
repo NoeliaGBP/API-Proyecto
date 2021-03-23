@@ -8,7 +8,7 @@ public class Usuario {
     private String contrasenia;
     private int token;
     private String correo;
-    private long telefono;
+    private String telefono;
     private Persona idPersona;
     private Rol idRol;
 
@@ -36,22 +36,6 @@ public class Usuario {
         this.token = token;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public long getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(long telefono) {
-        this.telefono = telefono;
-    }
-
     public Persona getIdPersona() {
         return idPersona;
     }
@@ -66,5 +50,21 @@ public class Usuario {
 
     public void setIdRol(Rol idRol) {
         this.idRol = idRol;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }
