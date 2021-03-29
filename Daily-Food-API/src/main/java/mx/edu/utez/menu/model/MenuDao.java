@@ -1,5 +1,7 @@
 package mx.edu.utez.menu.model;
 
+import mx.edu.utez.platillo.model.PlatilloCompleto;
+import mx.edu.utez.platillo.model.PlatilloDao;
 import mx.edu.utez.sucursal.model.SucursalDao;
 import mx.edu.utez.tipomenu.model.TipoMenuDao;
 import mx.edu.utez.tools.ConnectionDB;
@@ -10,29 +12,35 @@ import java.util.List;
 
 public class MenuDao {
 
-    public List getMenus(){
-        ArrayList listMenus = new ArrayList();
+    public Menu getMenus(){
+        Menu menu = new Menu();
+        List<PlatilloCompleto> platillos = new ArrayList();
         try{
             Connection con = ConnectionDB.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM menu");
+            PreparedStatement ps = con.prepareStatement("SELECT pem.idPlatillo, m.idMenu FROM platilloenmenu pem \n" +
+                    "INNER JOIN menu m ON pem.idMenu = m.idMenu\n" +
+                    "INNER JOIN menudia md on m.idMenu = md.idMenu\n" +
+                    "WHERE md.fecha = curdate()\n" +
+                    "AND pem.status = 1\n" +
+                    "AND md.status = 1;");
             ResultSet rs = ps.executeQuery();
+            PlatilloDao platDao = new PlatilloDao();
             while(rs.next()){
-                Menu obj = new Menu();
-                TipoMenuDao tipoMenu = new TipoMenuDao();
-                SucursalDao sucursal = new SucursalDao();
-                obj.setIdMenu(rs.getInt(1));
-                obj.setNombreMenu(rs.getString(2));
-                obj.setIdTipoMenu(tipoMenu.getTipoMenuById(rs.getInt(3)));
-                obj.setIdSucursal(sucursal.getSucursalById(rs.getInt(4)));
-                listMenus.add(obj);
+                menu = (this.getMenuById(2));
+                PlatilloCompleto platillo = platDao.getPlatilloCompletoById(rs.getInt(1));
+                platillo.setIngredientes(null);
+                platillo.setPreparacion(null);
+                platillos.add(platillo);
             }
+            menu.setPlatillos(platillos);
+            System.out.println(platillos);
             rs.close();
             ps.close();
             con.close();
         }catch(Exception e){
             System.err.println("LIST "+e.getMessage());
         }
-        return listMenus;
+        return menu;
     }
 
     public Menu getMenuById(int idMenu){

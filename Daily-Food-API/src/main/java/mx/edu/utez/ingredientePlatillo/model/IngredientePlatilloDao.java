@@ -77,7 +77,6 @@ public class IngredientePlatilloDao {
 
     public boolean createIngredientePlatillo(IngredientePlatillo object) throws SQLException{
         boolean flag = false;
-
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
@@ -86,7 +85,9 @@ public class IngredientePlatilloDao {
             ps.setInt(2,object.getIdPlatillo().getIdPlatillo());
             ps.setDouble(3,object.getPorcion());
             ps.setInt(4,object.getIdUnidadMedida().getIdUnidadMedida());
-
+            System.out.println(object.getIdIngrediente());
+            System.out.println(object.getIdPlatillo());
+            System.out.println(object.getIdUnidadMedida());
             flag = ps.executeUpdate() == 1;
 
             if(flag){

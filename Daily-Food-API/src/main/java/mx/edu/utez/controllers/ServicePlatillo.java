@@ -59,10 +59,10 @@ public class ServicePlatillo {
     @Path("/platillos")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public MyResponse  createPlatillo(Platillo platillo) throws SQLException{
+    public MyResponse  createPlatillo(PlatilloCompleto platillo) throws SQLException{
         MyResponse response = new MyResponse();
-        Platillo platilloInsert = (new PlatilloDao().createPlatillo(platillo));
-        if(platilloInsert.getIdPlatillo() > 0){
+        boolean platilloInsert = (new PlatilloDao().createPlatillo(platillo));
+        if(platilloInsert){
             response.setCode(200);
             response.setStatus("success");
             response.setMessage("PLATILLO CREATED");

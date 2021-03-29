@@ -1,8 +1,10 @@
 package mx.edu.utez.platillo.model;
 
+import mx.edu.utez.imagenplatillo.model.ImagenPlatillo;
 import mx.edu.utez.imagenplatillo.model.ImagenPlatilloDAO;
 import mx.edu.utez.ingredientePlatillo.model.IngredientePlatilloDao;
 import mx.edu.utez.precio.model.PrecioDao;
+import mx.edu.utez.preparacion.model.Preparacion;
 import mx.edu.utez.preparacion.model.PreparacionDao;
 import mx.edu.utez.tipoPlatillo.model.TipoPlatilloDao;
 import mx.edu.utez.tools.ConnectionDB;
@@ -102,33 +104,52 @@ public class PlatilloDao {
         return platillo;
     }
 
-    public Platillo createPlatillo(Platillo platillo) throws SQLException{
+    public boolean createPlatillo(PlatilloCompleto platillo) throws SQLException{
         boolean flag = false;
+        boolean myFlag = false;
         Platillo platilloInsert = new Platillo();
         con = null;
         try{
             con = ConnectionDB.getConnection();
             con.setAutoCommit(false);
             ps = con.prepareStatement("INSERT INTO platillo (`nombrePlatillo`,`tiempoPreparacion`, `descripcion`, `idTipoPlatillo`) VALUES (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1,platillo.getNombrePlatillo());
-            ps.setInt(2,platillo.getTiempoPreparacion());
-            ps.setString(3, platillo.getDescripcion());
-            ps.setInt(4,platillo.getIdTipoPlatillo().getIdTipoPlatillo());
+            ps.setString(1,platillo.getPlatillo().getNombrePlatillo());
+            ps.setInt(2,platillo.getPlatillo().getTiempoPreparacion());
+            ps.setString(3, platillo.getPlatillo().getDescripcion());
+            ps.setInt(4,platillo.getPlatillo().getIdTipoPlatillo().getIdTipoPlatillo());
+
+            ImagenPlatilloDAO imgDao = new ImagenPlatilloDAO();
+            PreparacionDao preparacion = new PreparacionDao();
+            IngredientePlatilloDao ingredientes = new IngredientePlatilloDao();
 
             flag = (ps.executeUpdate() == 1);
-
+            System.out.println(flag);
             if(flag){
-                con.commit();
-
                 try(ResultSet generateKeys = ps.getGeneratedKeys()){
                     if(generateKeys.next()){
                         int idRecovery = generateKeys.getInt(1);
-                        platilloInsert = platillo;
+                        platilloInsert = platillo.getPlatillo();
+                        System.out.println(idRecovery);
                         platilloInsert.setIdPlatillo(idRecovery);
+                        ImagenPlatillo imagen = imgDao.createImagenPlatillo(platillo.getImagen().getImgFile(), platilloInsert.getIdPlatillo());
+                        platillo.getPreparacion().setIdPlatillo(platilloInsert);
+                        Preparacion prep = preparacion.createPreparacion(platillo.getPreparacion());
+                        for (int i = 0; i < platillo.getIngredientes().size(); i++){
+                            System.out.println("Entre aquí");
+                            platillo.getIngredientes().get(i).setIdPlatillo(platilloInsert);
+                            System.out.println(platilloInsert.getIdPlatillo());
+                            myFlag = ingredientes.createIngredientePlatillo(platillo.getIngredientes().get(i));
+                        }
                     }else{
                         throw new SQLException("FAIL PLATILLO NOT CREATED");
                     }
                 }
+                con.commit();
+            }
+            if(platilloInsert.getIdPlatillo() > 0 && myFlag){
+                flag = true;
+            }else{
+                flag = false;
             }
         }catch(Exception e){
             System.err.println("ERROR CREATE" + e.getMessage());
@@ -138,8 +159,7 @@ public class PlatilloDao {
             if(rs!=null)rs.close();
             if(ps!=null)ps.close();
         }
-
-        return platilloInsert;
+        return flag;
     }
 
 

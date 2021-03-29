@@ -7,7 +7,6 @@ import mx.edu.utez.response.MyResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
-import java.util.List;
 
 @Path("/daily")
 public class ServicioMenu {
@@ -17,9 +16,9 @@ public class ServicioMenu {
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getMenus(){
         MyResponse response = new MyResponse();
-        List<Menu> menus = (new MenuDao().getMenus());
-        response.setData(menus);
-        if(menus.size() > 0){
+        Menu menu = (new MenuDao().getMenus());
+        response.setData(menu);
+        if(menu.getIdMenu() != 0){
             response.setStatus("success");
             response.setCode(200);
             response.setMessage("Consulta exitosa");
