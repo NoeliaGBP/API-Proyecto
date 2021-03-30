@@ -150,4 +150,3 @@ public class ImagenPlatilloDAO {
         return Base64.getEncoder().encodeToString(fileContent);
     }
 }
-

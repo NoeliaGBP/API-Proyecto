@@ -23,9 +23,9 @@ public class PersonaDAO {
                     personas.add(persona);
                 }
             }
-            if (con != null) con.close();
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
+            if (con!=null) con.close();
+            if (ps!=null) ps.close();
+            if (rs!=null) rs.close();
         } catch (Exception e) {
             e.getMessage();
             e.printStackTrace();
@@ -48,32 +48,6 @@ public class PersonaDAO {
                     persona.setSegundoApellido(rs.getString(4));
                 }
             }
-            if (con != null) con.close();
-            if (ps != null) ps.close();
-            if (rs != null) rs.close();
-        } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace();
-        }
-        return persona;
-    }
-
-    public List<Persona> getPersona(Persona dato) {
-        List<Persona> personas = new ArrayList<>();
-        try {
-            Connection con = ConnectionDB.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM persona WHERE nombre LIKE '%"+dato.getNombre()+"%' OR primerApellido LIKE '%"+dato.getPrimerApellido()+"%' OR segundoApellido LIKE '%"+dato.getSegundoApellido()+"%'");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs != null) {
-                    Persona persona = new Persona();
-                    persona.setIdPersona(rs.getInt(1));
-                    persona.setNombre(rs.getString(2));
-                    persona.setPrimerApellido(rs.getString(3));
-                    persona.setSegundoApellido(rs.getString(4));
-                    personas.add(persona);
-                }
-            }
             if (con!=null) con.close();
             if (ps!=null) ps.close();
             if (rs!=null) rs.close();
@@ -81,7 +55,7 @@ public class PersonaDAO {
             e.getMessage();
             e.printStackTrace();
         }
-        return personas;
+        return persona;
     }
 
     public Persona createPersona(Persona persona) throws SQLException {

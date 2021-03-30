@@ -14,9 +14,9 @@ import java.util.List;
 
 @Path("/daily")
 public class ServiceImagenPlatillo {
-    
+
     @GET
-    @Path("/imagenes-platillo")
+    @Path("/imagenes.platillo")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getImages() {
         MyResponse response = new MyResponse();
@@ -38,7 +38,7 @@ public class ServiceImagenPlatillo {
     }
 
     @GET
-    @Path("/imagenes-platillo/{id}")
+    @Path("/imagenes.platillo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse getImagenPlatilloById(@PathParam("id") int id) {
         MyResponse response = new MyResponse();
@@ -61,10 +61,11 @@ public class ServiceImagenPlatillo {
     }
 
     @POST
-    @Path("/imagenes-platillo/{idPlatillo}")
+    @Path("/imagenes.platillo/{idPlatillo}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse createImagenPlatillo(@FormDataParam("img") File img, @PathParam("idPlatillo") int idPlatillo) throws Exception  {
         MyResponse response = new MyResponse();
+        System.out.println("Value"+img);
         ImagenPlatillo created = (new ImagenPlatilloDAO().createImagenPlatillo(img, idPlatillo));
 
         if (created.getIdImagenPlatillo() > 0) {
@@ -83,7 +84,7 @@ public class ServiceImagenPlatillo {
     }
 
     @PUT
-    @Path("/imagenes-platillo/{idImagenPlatillo}/{idPlatillo}")
+    @Path("/imagenes.platillo/{idImagenPlatillo}/{idPlatillo}")
     @Produces(MediaType.APPLICATION_JSON)
     public MyResponse updateImagenPlatillo(@FormDataParam("img") File img, @PathParam("idImagenPlatillo") int idImagenPlatillo, @PathParam("idPlatillo") int idPlatillo) throws SQLException {
         MyResponse response = new MyResponse();
@@ -108,7 +109,7 @@ public class ServiceImagenPlatillo {
     }
 
     @DELETE
-    @Path("/imagenes-platillo/{id}")
+    @Path("/imagenes.platillo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
 
     public MyResponse deleteSucursal(@PathParam("id") int id) throws SQLException {

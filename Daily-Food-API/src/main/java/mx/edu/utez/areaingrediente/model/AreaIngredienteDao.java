@@ -105,4 +105,54 @@ public class AreaIngredienteDao {
         return areaIngredienteInsert;
     }
 
+    public boolean updateAreaIngrediente(AreaIngrediente areaIngrediente) throws SQLException{
+        boolean flag = false;
+
+        try{
+            con = ConnectionDB.getConnection();
+            con.setAutoCommit(false);
+            ps = con.prepareStatement("UPDATE areaingrediente SET nombreArea = ? WHERE idAreaIngrediente = ?;");
+            ps.setString(1,areaIngrediente.getNombreArea());
+            ps.setInt(2 ,areaIngrediente.getId());
+
+            flag  = ps.executeUpdate() == 1;
+
+            con.commit();
+
+        }catch(Exception e){
+            System.err.println("Error Area Ingrediente Update");
+            con.rollback();
+        }finally{
+            if(con!=null) con.close();
+            if(rs!=null)rs.close();
+            if(ps!=null)ps.close();
+        }
+
+        return flag;
+    }
+
+    public boolean deleteAreaIngrediente(int id) throws SQLException{
+        boolean flag = false;
+
+        try{
+            con = ConnectionDB.getConnection();
+            con.setAutoCommit(false);
+            ps = con.prepareStatement("DELETE FROM areaingrediente WHERE idAreaIngrediente = ?;");
+            ps.setInt(1,id);
+
+            flag = ps.executeUpdate() == 1;
+
+            con.commit();
+        }catch(Exception e){
+            System.err.println("Error Area Ingrediente Delete");
+            con.rollback();
+        }finally{
+            if(con!=null) con.close();
+            if(rs!=null)rs.close();
+            if(ps!=null)ps.close();
+        }
+
+        return flag;
+    }
+
 }

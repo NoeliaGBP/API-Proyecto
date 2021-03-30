@@ -54,30 +54,6 @@ public class RolDAO {
         return rol;
     }
 
-    public List<Rol> getRol(String dato) {
-        List<Rol> roles = new ArrayList<>();;
-        try {
-            Connection con = ConnectionDB.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM rol WHERE nombreRol LIKE '%"+dato+"%'");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs != null) {
-                    Rol rol = new Rol();
-                    rol.setIdRol(rs.getInt(1));
-                    rol.setNombreRol(rs.getString(2));
-                    roles.add(rol);
-                }
-            }
-            if (con!=null) con.close();
-            if (ps!=null) ps.close();
-            if (rs!=null) rs.close();
-        } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace();
-        }
-        return roles;
-    }
-
     public Rol createRol(Rol rol) throws SQLException {
         Rol nuevo = new Rol();
         Connection con = null;
